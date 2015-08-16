@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="about.css">
+    <!-- Bootstrap core CSS -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid" id="big">
+        <div id='header'></div>
+
+        <!-- The below content would be replaced with specific item information via ajax calls
+        Everything below is just a replaceable content template -->
+        <div class="conatiner-fluid" style="margin-top:20px;">
+            <div class="row">
+                <div class="col-md-1">
+                    <img class="img-responsive pull-right" alt="Responsive image" style="width:100px; height:auto;" src="img/abyssal-scepter.gif" />
+                </div>
+                <div class="col-md-2">
+                    <div class="itemName">
+                        Abyssal Scepter
+                    </div>
+                </div>
+                <div class="col-md-8 row">
+                    <div class="itemName" style="margin-bottom:10px;">
+                        Basic Item Stats: 
+                    </div>
+                    <div class="col-md-6">
+                        <div class="itemName">
+                            5.11
+                        </div>
+                        <div class="stats">
+                            <table class="table borderless">
+                                <tr>
+                                    <th>Raw Stats</th>
+                                    <td>+70 Ability Power <br/> +50 Magic Resist</td>
+                                </tr>
+                                <tr>
+                                    <th>Passives</th>
+                                    <td>(unique aura) Reduces the Magic Resist of nearby enemies by 20. </td>
+                                </tr>
+                                <tr>
+                                    <th>Actives</th>
+                                    <td>none</td>
+                                </tr>
+                                <tr>
+                                    <th>Gold</th>
+                                    <td>2600g</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="itemName">
+                            5.14
+                        </div>
+                        <div class="stats">
+                            <table class="table borderless">
+                                <tr>
+                                    <th>Raw Stats</th>
+                                    <td>+70 Ability Power <br/> +50 Magic Resist</td>
+                                </tr>
+                                <tr>
+                                    <th>Passives</th>
+                                    <td>(unique aura) Reduces the Magic Resist of nearby enemies by 20. </td>
+                                </tr>
+                                <tr>
+                                    <th>Actives</th>
+                                    <td>none</td>
+                                </tr>
+                                <tr>
+                                    <th>Gold</th>
+                                    <td>2580g</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass_container container" style="margin-top:30px">
+            ANALYSIS
+        </div>
+    </div>
+</body>
+<script src="js/jquery.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#header').load('header.html');
+    })
+</script>
+</html>

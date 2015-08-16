@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="about.css">
+    <!-- Bootstrap core CSS -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid" id="big">
+        <div id='header'></div>
+
+        <div class="glass_container container" style="margin-top:30px">
+            <div class="table-responsive" style="margin-top:20px">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Old win-rate</th>
+                            <th>New win-rate</th>
+                            <th>Overall rank</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Abyssal Scepter</td>
+                            <td>20%</td>
+                            <td>50%</td>
+                            <td>^ 2</td>
+                        </tr>
+                        <tr>
+                            <td>Mejai's Soulstealer</td>
+                            <td>20%</td>
+                            <td>50%</td>
+                            <td>v 1</td>
+                        </tr>
+                        <tr>
+                            <td>Rabadon's Deathcap</td>
+                            <td>50%</td>
+                            <td>20%</td>
+                            <td>v 1</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="js/jquery.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#header').load('header.html');
+    })
+</script>
+</html>
