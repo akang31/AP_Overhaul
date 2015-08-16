@@ -10,25 +10,7 @@
 </head>
 <body>
     <div class="container-fluid" id="big">
-        <div class="row" style="margin-top:10px">
-            <div class="col-md-4">
-                <a href="">
-                    <img src="img/championgg.png" />
-                </a>
-            </div>
-            <div class="col-md-6"></div>
-            <div class="col-md-2 text-right">
-                <button type="button" class="btn nav_buttons" href="itemPage.html">About</button>
-                <button type="button" class="btn nav_buttons">End-game</button>
-                <div class="form-group">
-                    <input style="margin-top:20px" 
-                            type="search" 
-                            class="form-control" 
-                            id="searchInput" 
-                            placeholder="Search for a champion/item">
-                </div>
-            </div>
-        </div>
+        <div id='header'></div>
 
         <div class="glass_container container" style="margin-top:30px">
             <div class="table-responsive" style="margin-top:20px">
@@ -66,4 +48,10 @@
         </div>
     </div>
 </body>
+<script src="js/jquery.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#header').load('header.html');
+    })
+</script>
 </html>
