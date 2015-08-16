@@ -1,0 +1,33 @@
+html, body {
+    height: 100%;
+}
+
+#big {
+    background-color: #191970;
+    height: 100%;
+}
+
+.glass_container {
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 10px;
+}
+
+.nav_buttons {
+    background-color: #191970; 
+    color: white;
+}
+
+.itemName {
+    color: white;
+    font-size: 20px;
+}
+
+.stats {
+    color: white;
+    font-size: 15px;
+    margin-top: 10px;
+}
+
+.borderless td, .borderless th {
+    border: none !important;
+}
