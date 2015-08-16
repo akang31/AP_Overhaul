@@ -30,6 +30,9 @@ Data Storage Initialization
 
 champDict = {}
 overallData = {}
+overallItemPickData = {}
+for key in itemData['data']:
+    overallItemPickData[key] = 0
 for key in champData['data']:
     #print key
     tempList = []
@@ -89,6 +92,7 @@ def analyze(matchId):
         if str(person['teamId']) == str(winteam):
             winners.append(person['participantId'])
         people[person['participantId']] = person['championId']
+    itemsInGame = {}
     for person in gameData['participants']:
         add = 'W' if person['participantId'] in winners else 'L'
         overallData[str(person['championId'])][add] += 1
@@ -97,11 +101,13 @@ def analyze(matchId):
             if 'item'+str(i) in person['stats']:
                 try:
                     champDict[str(person['championId'])][7][str(person['stats']['item'+str(i)])][add] += 1
+                    itemsInGame[person['stats']['item'+str(i)]] = 1
                     #print 'itemadded'
                 except KeyError:
                     continue
     #                print 'no item in this slot'
-
+    for key in itemsInGame:
+        overallItemPickData[str(key)] += 1
     """
     Handle Timeline Data:
         timeline
@@ -214,10 +220,39 @@ def extractStatistics():
                 itemCountChamp[item] = itemCount.get(item,0)+ champDict[champ][i][item].get('W',0)
                 itemCountChamp[item] += champDict[champ][i][item].get('L',0)
     ## Pick Rate of champions
+    totalGames = 0
+    for key in overallData:
+        totalGames += overallData[key]['W']+overallData[key]['L']
+    totalGames /= 10
+    ret['championPickRate'] = {}
+    for key in overallData:
+        ret['championPickRate'][key] = (overallData[key]['W']+overallData[key]['L']) / float(totalGames)
     ## Pick Rate of items
+    ret['itemPickRate'] = {}
+    for key in overallItemPickData:
+        ret['itemPickRate'][key] = overallItemPickData[key] / float(totalGames)
+    ## Average number of item bought per game
+    ret['avgItemPerGame'] = {}
+    for item in itemData['data']:
+        ret['avgItemPerGame'][item] = 0
+    for champ in champDict:
+        for item in itemData['data']:
+            ret['avgItemPerGame'][item] += champDict[champ][7][item]['W'] + champDict[champ][7][item]['L']
+    for item in itemData['data']:
+        if ret['avgItemPerGame'][item] > 0:
+            ret['avgItemPerGame'][item] /= float(overallItemPickData[item])
     ## Pick Rate of items given champion
+    ret['itemPickRateChampion'] = {}
+    for champ in champDict:
+        ret['itemPickRateChampion'][champ] = {}
+        for item in itemData['data']:
+            if champDict[champ][7][item]['W']+champDict[champ][7][item]['L'] > 0:
+                ret['itemPickRateChampion'][champ][item] = (champDict[champ][7][item]['W']+champDict[champ][7][item]['L'])/float(overallData[champ]['W']+overallData[champ]['L'])
+
     ## Pick Rate of items in certain slot
+
     ## Pick Rate of items in certain slot given champion
+
     return ret
 
 analyze(1900729148)
