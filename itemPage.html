@@ -7,6 +7,21 @@
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap theme -->
     <link href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link rel="import" href="bower_components/polymer/polymer.html">
+    <link rel="import" href="bower_components/paper-card/paper-card.html">
+    <link rel="import" href="bower_components/paper-button/paper-button.html">
+    <style type="text/css">
+        paper-card {
+            width: 100%;
+            margin-top: 30px;
+        }
+        .card-content {
+            font-size: 18px;
+        }
+        .card-content div {
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
     <div class="container-fluid" id="big">
@@ -82,8 +97,54 @@
             </div>
         </div>
 
-        <div class="glass_container container" style="margin-top:30px">
-            ANALYSIS
+        <div class="container-fluid row" style="margin-top:30px; height:100%">
+            <div class="col-md-4">
+                <paper-card heading="Item Impact">
+                    <div class="card-content">
+                        <table class="table">
+                            <tr>
+                                <!-- on mouse-hover, explains what GPM is and how we calculated it-->
+                                <th>GPM</th>
+                                <td class="text-right">2.5 -> 3.6</td>
+                                <td class="text-right">^1.1</td>
+                            </tr>
+                            <tr>
+                                <th style="border-style:none"></th>
+                                <td style="border-style:none" colspan="2" class="text-right">
+                                    <img src="img/graph.png" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>DPM</th>
+                                <td class="text-right">3.1 -> 2.2</td>
+                                <td class="text-right">^0.9</td>
+                            </tr>
+                            <tr>
+                                <!-- likewise for DPM -->
+                                <th style="border-style:none"></th>
+                                <td style="border-style:none" colspan="2">(graph goes here)</td>
+                            </tr>
+                        </table>
+                    </div>
+                </paper-card>
+                <paper-card heading="Item Impact">
+                    <div class="card-content">Some content</div>
+                </paper-card>
+            </div>
+            <div class="col-md-4">
+                <paper-card heading="Average completion time">
+                    <div class="card-content">29 min. -> 40 min.</div>
+                </paper-card>
+                <paper-card heading="Win rate">
+                    <div class="card-content">29% -> 40%</div>
+                </paper-card>
+            </div>
+            <div class="col-md-4">
+                <paper-card heading="Champions that benefitted the most">
+                    <div class="card-content">Some content</div>
+                    <paper-button class="card-actions" style="width:100%">Show more...</paper-button>
+                </paper-card>
+            </div>
         </div>
     </div>
 </body>
