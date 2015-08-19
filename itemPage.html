@@ -7,15 +7,40 @@
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap theme -->
     <link href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <!-- Polymer elements -->
     <link rel="import" href="bower_components/polymer/polymer.html">
     <link rel="import" href="bower_components/paper-card/paper-card.html">
     <link rel="import" href="bower_components/paper-button/paper-button.html">
     <link rel="import" href="bower_components/iron-icon/iron-icon.html">
     <link rel="import" href="bower_components/iron-icons/iron-icons.html">
+
+    <link rel="import" href="champ-box.html">
+    <style type="text/css">
+
+    </style>
 </head>
 <body>
     <div class="container-fluid" id="big">
-        <div id='header'></div>
+        <div class="row" style="margin-top:10px">
+            <div class="col-md-4">
+                <a href="">
+                    <img src="img/championgg.png" />
+                </a>
+            </div>
+            <div class="col-md-6"></div>
+            <div class="col-md-2 text-right">
+                <button type="button" class="btn nav_buttons" onClick=goAbout()>About</button>
+                <button type="button" class="btn nav_buttons">End-game</button>
+                <div class="form-group right-inner-addon">
+                    <i class="icon-search"></i>
+                    <input style="margin-top:20px" 
+                            type="search" 
+                            class="form-control" 
+                            id="searchInput" 
+                            placeholder="Search for a champion/item">
+                </div>
+            </div>
+        </div>
 
         <!-- The below content would be replaced with specific item information via ajax calls
         Everything below is just a replaceable content template -->
@@ -89,14 +114,14 @@
 
         <div class="container-fluid row" style="margin-top:30px;">
             <div class="col-md-4">
-                <paper-card heading="Item Impact">
+                <paper-card id="itemImpactCard" heading="Item Impact">
                     <div class="card-content">
                         <table class="table">
                             <tr>
                                 <!-- on mouse-hover, explains what GPM is and how we calculated it-->
                                 <th>GPM</th>
                                 <td class="text-right">2.5 <iron-icon icon="arrow-forward"></iron-icon> 3.6</td>
-                                <td class="text-right"><iron-icon icon="add"></iron-icon>1.1</td>
+                                <td class="text-right delta_green"><iron-icon icon="add"></iron-icon>1.1</td>
                             </tr>
                             <tr>
                                 <th style="border-style:none"></th>
@@ -107,7 +132,7 @@
                             <tr>
                                 <th>DPM</th>
                                 <td class="text-right">3.1 <iron-icon icon="arrow-forward"></iron-icon> 2.2</td>
-                                <td class="text-right"><iron-icon icon="remove"></iron-icon>0.9</td>
+                                <td class="text-right delta_red"><iron-icon icon="remove"></iron-icon>0.9</td>
                             </tr>
                             <tr>
                                 <!-- likewise for DPM -->
@@ -120,17 +145,17 @@
                                 <th>Win rate</th>
                                 <!-- add green color for positive deltas and red color for negative deltas -->
                                 <td class="text-right">3.5 <iron-icon icon="arrow-forward"></iron-icon> 2.2</td>
-                                <td class="text-right"><iron-icon icon="remove"></iron-icon>1.3</td>
+                                <td class="text-right delta_red"><iron-icon icon="remove"></iron-icon>1.3</td>
                             </tr>
                         </table>
                     </div>
                 </paper-card>
-                <paper-card heading="New card">
+                <paper-card id="newCard" heading="New card">
                     <div class="card-content">Some content</div>
                 </paper-card>
             </div>
             <div class="col-md-4">
-                <paper-card heading="Average completion time">
+                <paper-card id="avgCompletionCard" heading="Average completion time">
                     <div class="card-content">
                         <table class="table">
                             <tr>
@@ -140,36 +165,37 @@
                         </table>
                     </div>
                 </paper-card>
-                <paper-card heading="Win rate">
+                <paper-card id="winRateCard" heading="Win rate">
                     <div class="card-content">29% <iron-icon icon="arrow-forward"></iron-icon> 40%</div>
                 </paper-card>
-                <paper-card heading="Item Rank">
+                <paper-card id="itemRankCard" heading="Item Rank">
                     <div class="card-content">
                         <table class="table">
                             <tr>
                                 <td class="text-right">4 <iron-icon icon="arrow-forward"></iron-icon> 1</td>
-                                <td class="text-right"><iron-icon icon="expand-less"></iron-icon>3</td>
+                                <td class="text-right delta_green"><iron-icon icon="expand-less"></iron-icon>3</td>
                             </tr>
                         </table>
                     </div>
                 </paper-card>
             </div>
             <div class="col-md-4">
-                <paper-card heading="Champions that benefitted the most">
-                    <div class="card-content">Some content</div>
-                    <paper-button class="card-actions" style="width:100%">Show more...</paper-button>
+                <paper-card id="championCard" heading="Champions that benefitted the most">
+                    <div class="card-content">
+                        <template is="dom-repeat" items="{{testList}}">
+                            <champ-box>
+                        </template>
+                    </div>
+                    <paper-button class="card-actions" style="width:100%;">Show more...</paper-button>
                 </paper-card>
             </div>
         </div>
 
         <div id='footer'></div>
     </div>
-</body>
-<script src="js/jquery.js"></script>
-<script>
-    $(document).ready(function() {
-        $('#header').load('header.html');
+    <script src="js/jquery.js"></script>
+    <script>
         $('#footer').load('footer.html');
-    })
-</script>
+    </script>
+</body>
 </html>
