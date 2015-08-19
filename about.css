@@ -1,10 +1,21 @@
 html, body {
     height: 100%;
+    overflow: hidden;
+}
+
+#footer {
+    margin-top: 40px;
 }
 
 #big {
     background-color: #191970;
     height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: scroll;
 }
 
 .glass_container {
@@ -34,4 +45,30 @@ html, body {
 
 table {
     width: 100%;
+}
+
+paper-card {
+    width: 100%;
+    margin-top: 30px;
+}
+
+.card-content {
+    font-size: 18px;
+}
+
+.card-content table {
+    margin-bottom: 10px;
+}
+
+iron-icon.iron-icon-0 {
+    width: 18px;
+    height: 18px;
+}
+
+.delta_green {
+    color: green;
+}
+
+.delta_red {
+    color: red;
 }
