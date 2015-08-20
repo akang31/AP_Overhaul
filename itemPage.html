@@ -182,11 +182,14 @@
             <div class="col-md-4">
                 <paper-card id="championCard" heading="Champions that benefitted the most">
                     <div class="card-content">
-                        <template is="dom-repeat" items="{{testList}}">
-                            <champ-box>
-                        </template>
+                        <!-- Is there some repeat structure for this -->
+                        <champ-box rank=1 champ='{"icon":"img/champs/wukong.png", "name":"Wukong", "delta":"2"}'></champ-box>
+                        <champ-box rank=2 champ='{"icon":"img/champs/ahri.png", "name":"Ahri", "delta":"-1"}'></champ-box>
+                        <champ-box rank=3 champ='{"icon":"img/champs/akali.png", "name":"Akali", "delta":"-1"}'></champ-box>
+                        <champ-box rank=4 champ='{"icon":"img/champs/veigar.png", "name":"Veigar", "delta":"1"}'></champ-box>
+                        <champ-box rank=5 champ='{"icon":"img/champs/chogath.png", "name":"Chogath", "delta":"-1"}'></champ-box>
                     </div>
-                    <paper-button class="card-actions" style="width:100%;">Show more...</paper-button>
+                    <paper-button class="card-actions" style="width:100%; margin:0">Show more...</paper-button>
                 </paper-card>
             </div>
         </div>

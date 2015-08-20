@@ -1,93 +1,82 @@
 <link rel="import" href="bower_components/polymer/polymer.html">
-<link rel="import" href="bower_components/paper-button/paper-button.html">
-
-<!-- 
-############################################
-Collapse-mod  - sub-mod used for displaying result scores on result-page
-              - uses a collapsible to display multiple-choice
-############################################
- -->
+<link rel="import" href="bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="bower_components/iron-icons/iron-icons.html">
 
 <dom-module id="champ-box">
-  <style>
-  .collapseContent {
-    padding: 5px;
-    padding-top: 10px;
-    background-color: rgba(255, 255, 255, 0.42);
-  }
-  .headerButton {
+<style>
+.mainbox {
+    height: 40px;
     width: 100%;
-    font-size: 20px;
-    color: black;
-    background-color:rgba(255,255,255,.8);
-    display: block;
-    margin-left: 0px;
-    margin-top: 10px;
-    margin-bottom: 0px;
-  }
-  .iconButton{
-    padding: 0px; 
-  }
-  .subject{
-    color:black;
-    font-size: 20px;
-    font-weight: bold;
-  }
-  .score{
-    font-size: 20px;
-    font-weight: bold;
-  }
-  </style>
+    background-color: #d3d3d3;
+    margin-bottom: 5px;
+}
+div div div {
+    margin-top: 5px;
+}
+.row {
+    width: 100%;
+    margin: 0;
+}
 
-  <template>
-    <!-- button used to collapse/uncollapse section -->
-    <paper-button raised class="headerButton" on-click="toggle">
-      <div style="" class="layout horizontal">
-        <div class="flex-1 subject" style="padding-left:5px;">{{subject}}</div>
-        <div class="flex-5" style=""></div> 
-        <div class="flex-5" style=""><span class="score">{{score}}</span><span style="font-size:15px; ">/36</span></div>
-        <paper-icon-button icon="expand-more" class="iconButton"></paper-icon-button>
-      </div>
-    </paper-button>
-    
-    <!-- content --> 
-    <iron-collapse id="{{subject}}" class="collapseContent">
-      <div style="width:100%">
-        <content></content>
-      </div>
-      <div style="text-align: right; margin-top:20px;">
-        <paper-icon-button icon="expand-less" class="iconButton" on-click="toggle" style="right:6.4px"></paper-icon-button>
-      </div>
-    </iron-collapse>
-  </template>
+</style>
 
-  <script>
+<template>
+    <div class="mainbox">
+        <div class="row">
+            <div class="col-md-1">
+                <span>{{rank}}</span>
+            </div>
+            <div class="col-md-8">
+                <img src="{{champ.icon}}" style="width:30px; height:auto;" class="text-right"/>
+                <span style="margin-left:10px;">{{champ.name}}</span>
+            </div>
+            <div class$="{{signClass(champ.delta)}}">
+                <template is="dom-if" if="{{positive(champ.delta)}}">
+                    <iron-icon icon="expand-less"></iron-icon>
+                </template>
+                <template is="dom-if" if="{{negative(champ.delta)}}">
+                    <iron-icon icon="expand-more"></iron-icon>
+                </template>
+                <span>{{champ.delta}}</span>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
     Polymer({
-      is: 'collapse-mod',
-
-      properties: {
-        subject: {
-          type:String,
-          value:"Subject"
+        is: 'champ-box',
+        properties: {
+            rank: {
+                type: Number,
+                value: 0
+            },
+            champ: {
+                type: Object,
+                value: {
+                    "icon": "img/champs/aatrox.png",
+                    "name": "Wukong",
+                    "delta": "-2"
+                }
+            },
         },
-        score: {
-          type:String,
-          value:"0"
+        positive: function(elem) {
+            if(parseInt(elem) > 0)
+                return true;
+            return false;
+        },
+        negative: function(elem) {
+            if(parseInt(elem) < 0)
+                return true;
+            return false;
+        },
+        signClass: function(elem) {
+            if(parseInt(elem) > 0)
+                return "col-md-3 text-center delta_green";
+            else if(parseInt(elem) < 0)
+                return "col-md-3 text-center delta_red";
+            return "col-md-3 text-center";
         }
-      },
-
-      // Toggles the collapse content
-      toggle: function() {
-        var collapse = document.getElementById(this.subject);
-        collapse.toggle();
-        // Locates the small icon at the bottom of the content screen
-        var myIcon = collapse.parentNode.children[0].children[1].children[0].children[3];
-        if(myIcon.icon === "expand-more")
-          myIcon.icon = "expand-less";
-        else
-          myIcon.icon = "expand-more";
-      },
-
     });
-  </script>
+</script>
 </dom-module>
