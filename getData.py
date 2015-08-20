@@ -9,18 +9,9 @@ def prettyjson(arg):
 Static Data Handling
 
 """
+itemData = {}
+champData = {}
 
-handler =  urllib2.urlopen("https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?itemListData=gold,into&api_key=62763b3a-0683-48f1-9efc-1fcad131299c")
-itemData = json.loads(handler.read())
-
-#prettyjson(itemData['data'])
-
-handler = urllib2.urlopen("https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?dataById=true&api_key=62763b3a-0683-48f1-9efc-1fcad131299c")
-champData = json.loads(handler.read())
-
-#prettyjson(champData['data'])
-#for key, pair in champData['data'].iteritems():
-#    print pair['name']
 
 """
 
@@ -31,18 +22,18 @@ Data Storage Initialization
 champDict = {}
 overallData = {}
 overallItemPickData = {}
-for key in itemData['data']:
-    overallItemPickData[key] = 0
-for key in champData['data']:
-    #print key
-    tempList = []
-    for i in range(8):
-        tempDict = {}
-        for key1 in itemData['data']:
-            tempDict[key1.rstrip().strip()] = {'W':0, 'L':0, 'T':0, 'GP':0, 'D':0, 'TE':0}
-        tempList.append(tempDict)
-    overallData[key.rstrip().strip()] = {'W':0, 'L':0}
-    champDict[key.rstrip().strip()] = tempList
+# for key in itemData['data']:
+#     overallItemPickData[key] = 0
+# for key in champData['data']:
+#     #print key
+#     tempList = []
+#     for i in range(8):
+#         tempDict = {}
+#         for key1 in itemData['data']:
+#             tempDict[key1.rstrip().strip()] = {'W':0, 'L':0, 'T':0, 'GP':0, 'D':0, 'TE':0}
+#         tempList.append(tempDict)
+#     overallData[key.rstrip().strip()] = {'W':0, 'L':0}
+#     champDict[key.rstrip().strip()] = tempList
 
 def displayChampDict():
     for champ in champDict:
@@ -65,7 +56,7 @@ def analyze(matchId):
             break
         except:
             print "requests overloaded, waiting"
-            time.sleep(1000)
+            time.sleep(1)
     gameData = json.loads(handler.read())
     """
     Handle Post-Match Data:
@@ -255,6 +246,71 @@ def extractStatistics():
 
     return ret
 
-analyze(1900729148)
-ret = extractStatistics()
-print ret['itemTimeChampion']['103']['3157']
+def initialize(dir):
+    global itemData
+    global champData
+    if dir:
+        handler =  urllib2.urlopen("https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?version=5.14.1&itemListData=gold&api_key=62763b3a-0683-48f1-9efc-1fcad131299c")
+        itemData = json.loads(handler.read())
+    else:
+        handler =  urllib2.urlopen("https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?version=5.11.1&itemListData=gold&api_key=62763b3a-0683-48f1-9efc-1fcad131299c")
+        itemData = json.loads(handler.read())
+
+
+    #prettyjson(itemData['data'])
+
+    handler = urllib2.urlopen("https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?dataById=true&api_key=62763b3a-0683-48f1-9efc-1fcad131299c")
+    champData = json.loads(handler.read())
+
+    #prettyjson(champData['data'])
+    #for key, pair in champData['data'].iteritems():
+    #    print pair['name']
+    global champDict
+    global overallData
+    global overallItemPickData
+    champDict = {}
+    overallData = {}
+    overallItemPickData = {}
+    for key in itemData['data']:
+        overallItemPickData[key] = 0
+    for key in champData['data']:
+        #print key
+        tempList = []
+        for i in range(8):
+            tempDict = {}
+            for key1 in itemData['data']:
+                tempDict[key1.rstrip().strip()] = {'W':0, 'L':0, 'T':0, 'GP':0, 'D':0, 'TE':0}
+            tempList.append(tempDict)
+        overallData[key.rstrip().strip()] = {'W':0, 'L':0}
+        champDict[key.rstrip().strip()] = tempList
+
+
+def doAll():
+    f1 = open('NA-5.11.json')
+    games511 = json.loads(f1.read())
+    initialize(False)
+    for i in games511:
+        print "511 ",i
+        analyze(i)
+    json511 = extractStatistics()
+
+    f3 = open('NA-5.11Analysis.json', 'w')
+    f3.write(json.dumps(json511))
+
+    f2 = open('NA-5.14.json')
+    games514 = json.loads(f2.read())
+    initialize(True)
+    for i in games514:
+        print "514 ",i
+        analyze(i)
+    json514 = extractStatistics()
+
+    f4 = open('NA-5.14Analysis.json', 'w')
+    f4.write(json.dumps(json514))
+
+# initialize()
+# analyze(1900729148)
+# ret = extractStatistics()
+# print ret['itemTimeChampion']['103']['3157']
+
+doAll()
