@@ -3,6 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="stylesheet" type="text/css" href="animations.css">
     <!-- Bootstrap core CSS -->
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap theme -->
@@ -16,31 +17,11 @@
 
     <link rel="import" href="champ-box.html">
     <style type="text/css">
-
     </style>
 </head>
 <body>
     <div class="container-fluid" id="big">
-        <div class="row" style="margin-top:10px">
-            <div class="col-md-4">
-                <a href="/index.html">
-                    <img src="img/championgg.png" />
-                </a>
-            </div>
-            <div class="col-md-6"></div>
-            <div class="col-md-2 text-right">
-                <a href="/about.html" type="button" class="btn nav_buttons" onClick=goAbout()>About</a>
-                <a href="/itemPage.html" type="button" class="btn nav_buttons">End-game</a>
-                <div class="form-group right-inner-addon">
-                    <i class="icon-search"></i>
-                    <input style="margin-top:20px" 
-                            type="search" 
-                            class="form-control" 
-                            id="searchInput" 
-                            placeholder="Search for a champion/item">
-                </div>
-            </div>
-        </div>
+        <div id="header"></div>
 
         <!-- The below content would be replaced with specific item information via ajax calls
         Everything below is just a replaceable content template -->
@@ -54,7 +35,7 @@
                         Abyssal Scepter
                     </div>
                 </div>
-                <div class="col-md-8 row">
+                <div class="col-md-9 row">
                     <div class="itemName" style="margin-bottom:10px;">
                         Basic Item Stats: 
                     </div>
@@ -135,6 +116,10 @@
                                 <td class="text-right">3.5 <iron-icon icon="arrow-forward"></iron-icon> 2.2</td>
                                 <td class="text-right delta_red"><iron-icon icon="remove"></iron-icon>1.3</td>
                             </tr>
+                            <tr>
+                                <th>Impact Score</th>
+                                <td class="text-right">58.3 <iron-icon icon="arrow-forward"></iron-icon> 87.5</td>
+                                <td class="text-right delta_green"><iron-icon icon="add"></iron-icon>29.2</td>
                         </table>
                     </div>
                 </paper-card>
@@ -215,6 +200,7 @@
 
     <script src="js/jquery.js"></script>
     <script>
+        $('#header').load('header.html');
         $('#footer').load('footer.html');
     </script>
 </body>

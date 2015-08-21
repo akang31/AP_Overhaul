@@ -1,0 +1,233 @@
+/* animations modified from https://github.com/daneden/animate.css */
+@-webkit-keyframes slideInUp {
+    from {
+        -webkit-transform: translate3d(0, 2000px, 0);
+        transform: translate3d(0, 2000px, 0);
+        opacity: 0;
+    }
+    100% {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+    }
+}
+@keyframes slideInUp {
+    from {
+        -webkit-transform: translate3d(0, 2000px, 0);
+        transform: translate3d(0, 2000px, 0);
+        opacity: 0;
+    }
+    100% {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes slideInDown {
+    from {
+        -webkit-transform: translate3d(0, -100%, 0);
+        transform: translate3d(0, -100%, 0);
+        opacity: 0;
+    }
+    50% {
+        -webkit-transform: translate3d(0, -100%, 0);
+        transform: translate3d(0, -100%, 0);
+        opacity: 0;
+    }
+    100% {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInDown {
+    from {
+        -webkit-transform: translate3d(0, -100%, 0);
+        transform: translate3d(0, -100%, 0);
+        opacity: 0;
+    }
+    50% {
+        -webkit-transform: translate3d(0, -100%, 0);
+        transform: translate3d(0, -100%, 0);
+        opacity: 0;
+    }
+    100% {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes appear {
+    from {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        opacity: 0;
+    }
+    80% {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        opacity: 0;
+    }
+    100% {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        opacity: 1;
+    }
+}
+
+@keyframes appear {
+    from {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        opacity: 0;
+    }
+    80% {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        opacity: 0;
+    }
+    100% {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        opacity: 1;
+    }
+}
+
+/* itemPage.css */
+#itemImpactCard {
+    -webkit-animation-name: slideInUp;
+    animation-name: slideInUp;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+}
+#avgCompletionCard {
+    -webkit-animation-name: slideInUp;
+    animation-name: slideInUp;
+    -webkit-animation-duration: 1.2s;
+    animation-duration: 1.2s;
+}
+#winRateCard {
+    -webkit-animation-name: slideInUp;
+    animation-name: slideInUp;
+    -webkit-animation-duration: 1.3s;
+    animation-duration: 1.3s;
+}
+#itemRankCard {
+    -webkit-animation-name: slideInUp;
+    animation-name: slideInUp;
+    -webkit-animation-duration: 1.4s;
+    animation-duration: 1.4s;
+}
+#championBenefitCard {
+    -webkit-animation-name: slideInUp;
+    animation-name: slideInUp;
+    -webkit-animation-duration: 1.1s;
+    animation-duration: 1.1s;
+}
+#championFrequentCard {
+    -webkit-animation-name: slideInUp;
+    animation-name: slideInUp;
+    -webkit-animation-duration: 1.4s;
+    animation-duration: 1.4s;
+}
+#pickRateCard {
+    -webkit-animation-name: slideInUp;
+    animation-name: slideInUp;
+    -webkit-animation-duration: 1.6s;
+    animation-duration: 1.6s;
+}
+
+/* champPage.css */
+#champRankItemCard {
+    -webkit-animation-name: slideInUp;
+    animation-name: slideInUp;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+}
+#someCard {
+    -webkit-animation-name: slideInUp;
+    animation-name: slideInUp;
+    -webkit-animation-duration: 1.3s;
+    animation-duration: 1.3s;
+}
+#order0 {
+    -webkit-animation-name: slideInDown;
+    animation-name: slideInDown;
+    -webkit-animation-duration: 1.7s;
+    animation-duration: 1.7s;
+}
+#order1 {
+    -webkit-animation-name: slideInDown;
+    animation-name: slideInDown;
+    -webkit-animation-duration: 2s;
+    animation-duration: 2s;
+}
+#order2 {
+    -webkit-animation-name: slideInDown;
+    animation-name: slideInDown;
+    -webkit-animation-duration: 2.3s;
+    animation-duration: 2.3s;
+}
+#order3 {
+    -webkit-animation-name: slideInDown;
+    animation-name: slideInDown;
+    -webkit-animation-duration: 2.6s;
+    animation-duration: 2.6s;
+}
+#order4 {
+    -webkit-animation-name: slideInDown;
+    animation-name: slideInDown;
+    -webkit-animation-duration: 3.2s;
+    animation-duration: 3.2s;
+}
+#order5 {
+    -webkit-animation-name: slideInDown;
+    animation-name: slideInDown;
+    -webkit-animation-duration: 3.5s;
+    animation-duration: 3.5s;
+}
+#order6 {
+    -webkit-animation-name: slideInDown;
+    animation-name: slideInDown;
+    -webkit-animation-duration: 3.8s;
+    animation-duration: 3.8s;
+}
+#order7 {
+    -webkit-animation-name: slideInDown;
+    animation-name: slideInDown;
+    -webkit-animation-duration: 4.1s;
+    animation-duration: 4.1s;
+}
+#order8 {
+    -webkit-animation-name: slideInDown;
+    animation-name: slideInDown;
+    -webkit-animation-duration: 4.4s;
+    animation-duration: 4.4s;
+}
+#order9 {
+    -webkit-animation-name: slideInDown;
+    animation-name: slideInDown;
+    -webkit-animation-duration: 4.7s;
+    animation-duration: 4.7s;
+}
+#order10 {
+    -webkit-animation-name: slideInDown;
+    animation-name: slideInDown;
+    -webkit-animation-duration: 5.0s;
+    animation-duration: 5.0s;
+}
+#order11 {
+    -webkit-animation-name: slideInDown;
+    animation-name: slideInDown;
+    -webkit-animation-duration: 5.3s;
+    animation-duration: 5.3s;
+}
+#centerIcon {
+    -webkit-animation-name: appear;
+    animation-name: appear;
+    -webkit-animation-duration: 5.6s;
+    animation-duration: 5.6s;
+}
