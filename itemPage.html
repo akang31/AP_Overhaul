@@ -2,7 +2,7 @@
 <html lang='en'>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="about.css">
+    <link rel="stylesheet" type="text/css" href="main.css">
     <!-- Bootstrap core CSS -->
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap theme -->
@@ -23,14 +23,14 @@
     <div class="container-fluid" id="big">
         <div class="row" style="margin-top:10px">
             <div class="col-md-4">
-                <a href="">
+                <a href="/index.html">
                     <img src="img/championgg.png" />
                 </a>
             </div>
             <div class="col-md-6"></div>
             <div class="col-md-2 text-right">
-                <button type="button" class="btn nav_buttons" onClick=goAbout()>About</button>
-                <button type="button" class="btn nav_buttons">End-game</button>
+                <a href="/about.html" type="button" class="btn nav_buttons" onClick=goAbout()>About</a>
+                <a href="/itemPage.html" type="button" class="btn nav_buttons">End-game</a>
                 <div class="form-group right-inner-addon">
                     <i class="icon-search"></i>
                     <input style="margin-top:20px" 
@@ -130,18 +130,6 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th>DPM</th>
-                                <td class="text-right">3.1 <iron-icon icon="arrow-forward"></iron-icon> 2.2</td>
-                                <td class="text-right delta_red"><iron-icon icon="remove"></iron-icon>0.9</td>
-                            </tr>
-                            <tr>
-                                <!-- likewise for DPM -->
-                                <th style="border-style:none"></th>
-                                <td style="border-style:none" colspan="2" class="text-right">
-                                     <img style="width:80%; height:auto; margin-bottom:20px;" src="img/graph.png" />
-                                </td>
-                            </tr>
-                            <tr>
                                 <th>Win rate</th>
                                 <!-- add green color for positive deltas and red color for negative deltas -->
                                 <td class="text-right">3.5 <iron-icon icon="arrow-forward"></iron-icon> 2.2</td>
@@ -150,8 +138,15 @@
                         </table>
                     </div>
                 </paper-card>
-                <paper-card id="newCard" heading="New card">
-                    <div class="card-content">Some content</div>
+                <paper-card id="pickRateCard" heading="Item Pick Rate">
+                    <div class="card-content">
+                        <table class="table">
+                            <tr>
+                                <td class="text-right">29% <iron-icon icon="arrow-forward"></iron-icon> 40%</td>
+                                <td class="text-right"><iron-icon icon="add"></iron-icon>11%</td>
+                            </tr>
+                        </table>
+                    </div>
                 </paper-card>
             </div>
             <div class="col-md-4">
@@ -166,7 +161,14 @@
                     </div>
                 </paper-card>
                 <paper-card id="winRateCard" heading="Win rate">
-                    <div class="card-content">29% <iron-icon icon="arrow-forward"></iron-icon> 40%</div>
+                    <div class="card-content">
+                        <table class="table">
+                            <tr>
+                                <td class="text-right">29% <iron-icon icon="arrow-forward"></iron-icon> 40%</td>
+                                <td class="text-right"><iron-icon icon="add"></iron-icon>11%</td>
+                            </tr>
+                        </table>
+                    </div>
                 </paper-card>
                 <paper-card id="itemRankCard" heading="Item Rank">
                     <div class="card-content">
@@ -180,9 +182,23 @@
                 </paper-card>
             </div>
             <div class="col-md-4">
-                <paper-card id="championCard" heading="Champions that benefitted the most">
+                <paper-card id="championBenefitCard" heading="Champions that benefitted the most">
                     <div class="card-content">
                         <!-- Is there some repeat structure for this -->
+                        <!-- Acts weird when the page is resized -->
+                        <champ-box rank=1 champ='{"icon":"img/champs/wukong.png", "name":"Wukong", "delta":"2"}'></champ-box>
+                        <champ-box rank=2 champ='{"icon":"img/champs/ahri.png", "name":"Ahri", "delta":"-1"}'></champ-box>
+                        <champ-box rank=3 champ='{"icon":"img/champs/akali.png", "name":"Akali", "delta":"-1"}'></champ-box>
+                        <champ-box rank=4 champ='{"icon":"img/champs/veigar.png", "name":"Veigar", "delta":"1"}'></champ-box>
+                        <champ-box rank=5 champ='{"icon":"img/champs/chogath.png", "name":"Chogath", "delta":"-1"}'></champ-box>
+                    </div>
+                    <paper-button class="card-actions" style="width:100%; margin:0">Show more...</paper-button>
+                </paper-card>
+
+                <paper-card id="championFrequentCard" heading="Champions that bought this item the most">
+                    <div class="card-content">
+                        <!-- Is there some repeat structure for this -->
+                        <!-- Acts weird when the page is resized -->
                         <champ-box rank=1 champ='{"icon":"img/champs/wukong.png", "name":"Wukong", "delta":"2"}'></champ-box>
                         <champ-box rank=2 champ='{"icon":"img/champs/ahri.png", "name":"Ahri", "delta":"-1"}'></champ-box>
                         <champ-box rank=3 champ='{"icon":"img/champs/akali.png", "name":"Akali", "delta":"-1"}'></champ-box>

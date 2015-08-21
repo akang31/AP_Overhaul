@@ -1,0 +1,8 @@
+Stats I have to add: 
+
+championPickRate
+    "133": 0.0337
+itemPickRate
+    "3715": 0.0065
+championItemOrderWR
+    {"133": {"3715": {"1": {"D": 0, "GP": 0, "L": 0, "T": 0, "W": 0, "TE": 0} and so much more wtf
