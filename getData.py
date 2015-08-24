@@ -173,12 +173,12 @@ def extractStatistics():
     for champ in champDict:
         for item in itemData['data']:
             for i in range(8):
-                ret['overallItemData'][item][str(i)]['W'] += champDict[champ][7][item].get('W',0)
-                ret['overallItemData'][item][str(i)]['T'] += champDict[champ][7][item].get('T',0)
-                ret['overallItemData'][item][str(i)]['L'] += champDict[champ][7][item].get('L',0)
-                ret['overallItemData'][item][str(i)]['GP'] += champDict[champ][7][item].get('GP',0)
-                ret['overallItemData'][item][str(i)]['D'] += champDict[champ][7][item].get('D',0)
-                ret['overallItemData'][item][str(i)]['TE'] += champDict[champ][7][item].get('TE',0)
+                ret['overallItemData'][item][str(i)]['W'] += champDict[champ][i][item].get('W',0)
+                ret['overallItemData'][item][str(i)]['T'] += champDict[champ][i][item].get('T',0)
+                ret['overallItemData'][item][str(i)]['L'] += champDict[champ][i][item].get('L',0)
+                ret['overallItemData'][item][str(i)]['GP'] += champDict[champ][i][item].get('GP',0)
+                ret['overallItemData'][item][str(i)]['D'] += champDict[champ][i][item].get('D',0)
+                ret['overallItemData'][item][str(i)]['TE'] += champDict[champ][i][item].get('TE',0)
     ## W/L+GPM for certain champion given that they purchased a item at a certain timeline
     ret['championItemOrderWR'] = {}
     for champ in champDict:
