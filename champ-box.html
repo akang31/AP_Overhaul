@@ -23,14 +23,14 @@ div div div {
 <template>
     <div class="mainbox">
         <div class="row">
-            <div class="col-md-1">
+            <div class="col-md-1 col-sm-1 col-xs-1">
                 <span>{{rank}}</span>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8 col-sm-8 col-xs-8">
                 <img src="{{champ.icon}}" style="width:30px; height:auto;" class="text-right"/>
                 <span style="margin-left:10px;">{{champ.name}}</span>
             </div>
-            <div class$="{{signClass(champ.delta)}}">
+            <div class="{{signClass(champ.delta)}}">
                 <template is="dom-if" if="{{positive(champ.delta)}}">
                     <iron-icon icon="expand-less"></iron-icon>
                 </template>
@@ -72,10 +72,10 @@ div div div {
         },
         signClass: function(elem) {
             if(parseInt(elem) > 0)
-                return "col-md-3 text-center delta_green";
+                return "col-md-3 col-sm-3 col-xs-3 text-center delta_green";
             else if(parseInt(elem) < 0)
-                return "col-md-3 text-center delta_red";
-            return "col-md-3 text-center";
+                return "col-md-3 col-sm-3 col-xs-3 text-center delta_red";
+            return "col-md-3 col-sm-3 col-xs-3 text-center";
         }
     });
 </script>
