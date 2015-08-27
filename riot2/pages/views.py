@@ -7,21 +7,30 @@ import json
 def init():
     try:
         global f
-        a = f['overallChampionData']
+        a = f['championPickRate']
     except Exception:
         print 'reopening'
         f1 = open('NA-5.14Analysis.json')
         global f
         f = json.loads(f1.read())
-    # CHAMP PAGE STATISTICS
+    try:
+        global g
+        a = g['championPickRate']
+    except Exception:
+        print 'reopening'
+        f2 = open('NA-5.11Analysis.json')
+        global g
+        g = json.loads(f2.read())
 
-    # ITEM PAGE STATISTICS
+    global itemData511
+    global itemData514
+    handler514 =  urllib2.urlopen("https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?version=5.14.1&itemListData=gold&api_key=62763b3a-0683-48f1-9efc-1fcad131299c")
+    itemData514 = json.loads(handler514.read())
+    handler511 =  urllib2.urlopen("https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?version=5.11.1&itemListData=gold&api_key=62763b3a-0683-48f1-9efc-1fcad131299c")
+    itemData511 = json.loads(handler511.read())
+    handler = urllib2.urlopen("https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?dataById=true&api_key=62763b3a-0683-48f1-9efc-1fcad131299c")
+    champData = json.loads(handler.read())
 
-
-
-    #a = JSON(value="root", done="F")
-    #a.save()
-    #recurse(f, a)
 def recurse(lista, parent):
     if isinstance(lista, list):
         for i in range(len(lista)):
@@ -57,17 +66,6 @@ def table(request):
     wrlist = []
 
     ### VERY INEFFICIENT RIGHT NOW FIX SOON ###
-    dir = True
-    if dir:
-        handler =  urllib2.urlopen("https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?version=5.14.1&itemListData=gold&api_key=62763b3a-0683-48f1-9efc-1fcad131299c")
-        itemData = json.loads(handler.read())
-    else:
-        handler =  urllib2.urlopen("https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?version=5.11.1&itemListData=gold&api_key=62763b3a-0683-48f1-9efc-1fcad131299c")
-        itemData = json.loads(handler.read())
-    handler = urllib2.urlopen("https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?dataById=true&api_key=62763b3a-0683-48f1-9efc-1fcad131299c")
-    champData = json.loads(handler.read())
-
-
     for champ in f['championItemOrderWR']:
         addlist = ['']
         for item in f['championItemOrderWR'][champ]:
@@ -84,7 +82,59 @@ def table(request):
         wrlist.append(addList)
     show['wrlist'] = wrlist
     return render(request, 'pages/table.html', show)
+import re
+def itemPage(request, itemID):
+    init()
+    show = {}
+    # wr 511
+    show['itemName'] = itemData511['data'][str(itemID)]['name']
+    show['icon'] = '/static/img/abyssal-scepter.gif'
+    show['itemRawStats511'] = re.findall('<stats>(.*?)<\\\/stats\>', itemData511['data'][str(itemID)]['description'], re.DOTALL) if 'stats' in itemData511['data'][str(itemID)]['description'] else ''
+    show['itemPassiveStats511'] = re.findall('<unique>(.*?)<\\\/unique\>', itemData511['data'][str(itemID)]['description'], re.DOTALL) + re.findall('<\\\/unique\>(.*?)', itemData511['data'][str(itemID)]['description'], re.DOTALL) if 'unique' in itemData511['data'][str(itemID)]['description'] else ''
+    show['itemActiveStats511'] = "dinosaur"
+    show['itemCost511'] = itemData511['data'][str(itemID)]['gold']['total']
+    show['itemRawStats514'] = re.findall('<stats>(.*?)<\\\/stats\>', itemData514['data'][str(itemID)]['description'], re.DOTALL) if 'stats' in itemData514['data'][str(itemID)]['description'] else ''
+    show['itemPassiveStats514'] = re.findall('<unique>(.*?)<\\\/unique\>', itemData514['data'][str(itemID)]['description'], re.DOTALL) + re.findall('<\\\/unique\>(.*?)', itemData514['data'][str(itemID)]['description'], re.DOTALL) if 'unique' in itemData514['data'][str(itemID)]['description'] else ''
+    show['itemActiveStats514'] = "dinosaur"
+    show['itemCost514'] = itemData514['data'][str(itemID)]['gold']['total']
 
+    show['GPM511'] = 1
+    show['GPM514'] = 1
+    show['GPMdiff'] = 1
+    show['WR511'] = getWR(g['overallItemData'][str(itemID)]['7'])
+    show['WR514'] = getWR(f['overallItemData'][str(itemID)]['7'])
+    show['WRdiff'] = -show['WR511']+show['WR514']
+    show['iscore511'] = 1
+    show['iscore514'] = 1
+    show['iscorediff'] = 1
+    show['pickRate511'] = g['itemPickRate'][str(itemID)]
+    show['pickRate514'] = f['itemPickRate'][str(itemID)]
+    show['pickRateDiff'] = show['pickRate514'] - show['pickRate511']
+    show['completion511'] = g['itemTime'][str(itemID)]
+    show['completion514'] = f['itemTime'][str(itemID)]
+    show['completionDiff'] = show['completion514']-show['completion511']
+    show['rank511'] = 1
+    show['rank514'] = 1
+    show['rankdiff'] = 1
+    ranks511 = []
+    for i in range(5):
+        add = {}
+        add['rank'] = i+1
+        add['box'] = '\'{"icon":"/static/img/champs/wukong.png", "name":"Wukong", "delta":"2"}\''
+        ranks511.append(add)
+    show['ranked_511'] = ranks511
+    ranks514 = []
+    for i in range(5):
+        add = {}
+        add['rank'] = i+1
+        add['box'] = '\'{"icon":"/static/img/champs/wukong.png", "name":"Wukong", "delta":"2"}\''
+        ranks514.append(add)
+    show['ranked_514'] = ranks514
+    return render(request, 'pages/itemPage.html', show)
+
+
+def getWR(data):
+    return float(data['W'])/(data['W']+data['L']) if data['W'] > 0 else 0
 def index(request):
     # try:
     #     root = JSON.objects.get(value="root")

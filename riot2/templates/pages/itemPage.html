@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'animations.css' %}" />
+    <!-- Bootstrap core CSS -->
+    <link href="{% static "bower_components/bootstrap/dist/css/bootstrap.min.css" %}" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="{% static "bower_components/bootstrap/dist/css/bootstrap-theme.min.css" %}" rel="stylesheet">
+    <!-- Polymer elements -->
+    <link rel="import" href="{% static "bower_components/polymer/polymer.html" %}">
+    <link rel="import" href="{% static "bower_components/paper-card/paper-card.html" %}">
+    <link rel="import" href="{% static "bower_components/paper-button/paper-button.html" %}">
+    <link rel="import" href="{% static "bower_components/iron-icon/iron-icon.html" %}">
+    <link rel="import" href="{% static "bower_components/iron-icons/iron-icons.html" %}">
+
+    <link rel="import" href="{% static "champ-box.html" %}">
+</head>
+<body>
+      {% block content %}
+    <div class="container-fluid" id="big">
+        <div id="header"></div>
+
+        <!-- The below content would be replaced with specific item information via ajax calls
+        Everything below is just a replaceable content template -->
+        <div class="conatiner-fluid" style="margin-top:20px;">
+            <div class="row">
+                <div class="col-md-1">
+                    <img class="img-responsive pull-right" alt="Responsive image" style="width:100px; height:auto;" src="{{ icon }}" />
+                </div>
+                <div class="col-md-2">
+                    <div class="itemName">
+                        {{ itemName}}
+                    </div>
+                </div>
+                <div class="col-md-9 row">
+                    <div class="itemName" style="margin-bottom:10px;">
+                        Basic Item Stats:
+                    </div>
+                    <div class="col-md-6">
+                        <div class="itemName">
+                            5.11
+                        </div>
+                        <div class="stats">
+                            <table class="table borderless">
+                                <tr>
+                                    <th>Raw Stats</th>
+                                  <td> {{ itemRawStats511}} </td>
+                                </tr>
+                                <tr>
+                                    <th>Passives</th>
+                                    <td> {{ itemPassiveStats511 }} </td>
+                                </tr>
+                                <tr>
+                                    <th>Actives</th>
+                                    <td> {{itemActiveStats511 }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Gold</th>
+                                    <td> {{itemCost511}} </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="itemName">
+                            5.14
+                        </div>
+                        <div class="stats">
+                            <table class="table borderless">
+                                <tr>
+                                    <th>Raw Stats</th>
+                                    <td> {{itemRawStats514}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Passives</th>
+                                    <td>{{itemPassiveStats514}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Actives</th>
+                                    <td>{{itemActiveStats514}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Gold</th>
+                                    <td> {{itemCost514}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid row" style="margin-top:30px;">
+            <div class="col-md-4">
+                <paper-card id="itemImpactCard" heading="Item Impact">
+                    <div class="card-content">
+                        <table class="table">
+                            <tr>
+                                <!-- on mouse-hover, explains what GPM is and how we calculated it-->
+                                <th>GPM</th>
+                                <td class="text-right">{{GPM511}} <iron-icon icon="arrow-forward"></iron-icon> {{GPM514}}</td>
+                                <td class="text-right delta_green"><iron-icon icon="add"></iron-icon>{{GPMdiff}}</td>
+                            </tr>
+                            <tr>
+                                <td style="border-style:none;" colspan="3">
+                                    <div id="curve_chart" style="width:100%; height:100%"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Win rate</th>
+                                <!-- add green color for positive deltas and red color for negative deltas -->
+                                <td class="text-right">{{WR511}}<iron-icon icon="arrow-forward"></iron-icon> {{WR514}}</td>
+                                <td class="text-right delta_red"><iron-icon icon="remove"></iron-icon>{{WRdiff}}</td>
+                            </tr>
+                            <tr>
+                                <th>Impact Score</th>
+                                <td class="text-right"> {{iscore511}} <iron-icon icon="arrow-forward"></iron-icon>{{iscore514}}</td>
+                                <td class="text-right delta_green"><iron-icon icon="add"></iron-icon>{{iscorediff}}</td>
+                        </table>
+                    </div>
+                </paper-card>
+                <paper-card id="pickRateCard" heading="Item Pick Rate">
+                    <div class="card-content">
+                        <table class="table">
+                            <tr>
+                                <td class="text-right">{{pickRate511}} <iron-icon icon="arrow-forward"></iron-icon> {{pickRate514}}</td>
+                                <td class="text-right"><iron-icon icon="add"></iron-icon>{{pickRateDiff}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </paper-card>
+            </div>
+            <div class="col-md-4">
+                <paper-card id="avgCompletionCard" heading="Average completion time">
+                    <div class="card-content">
+                        <table class="table">
+                            <tr>
+                                <td class="text-right">{{completion511}} <iron-icon icon="arrow-forward"></iron-icon> {{completion514}}</td>
+                                <td class="text-right"><iron-icon icon="add"></iron-icon>{{completionDiff}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </paper-card>
+                <paper-card id="winRateCard" heading="Win rate">
+                    <div class="card-content">
+                        <table class="table">
+                            <tr>
+                                <td class="text-right">{{WR511}} <iron-icon icon="arrow-forward"></iron-icon> {{WR514}}</td>
+                                <td class="text-right"><iron-icon icon="add"></iron-icon>{{WRdiff}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </paper-card>
+                <paper-card id="itemRankCard" heading="Item Rank">
+                    <div class="card-content">
+                        <table class="table">
+                            <tr>
+                                <td class="text-right">{{rank511}} <iron-icon icon="arrow-forward"></iron-icon> {{rank514}}</td>
+                                <td class="text-right delta_green"><iron-icon icon="expand-less"></iron-icon>{{rankdiff}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </paper-card>
+            </div>
+            <div class="col-md-4">
+                <paper-card id="championBenefitCard" heading="Champions that benefitted the most">
+                    <div class="card-content">
+                        <!-- Is there some repeat structure for this -->
+                        <!-- Acts weird when the page is resized -->
+                        {% for champ in ranked_511 %}
+                          <champ-box rank={{champ.rank}} champ={{champ.box|safe}}></champ-box>
+                        {% endfor %}
+                    </div>
+                    <paper-button class="card-actions" style="width:100%; margin:0">Show more...</paper-button>
+                </paper-card>
+
+                <paper-card id="championFrequentCard" heading="Champions that bought this item the most">
+                    <div class="card-content">
+                        <!-- Is there some repeat structure for this -->
+                        <!-- Acts weird when the page is resized -->
+                        {% for champ in ranked_514 %}
+                          <champ-box rank={{champ.rank}} champ={{champ.box|safe}}></champ-box>
+                        {% endfor %}
+                    </div>
+                    <paper-button class="card-actions" style="width:100%; margin:0">Show more...</paper-button>
+                </paper-card>
+            </div>
+        </div>
+
+        <div id='footer'></div>
+    </div>
+
+    <script src="js/jquery.js"></script>
+    <script>
+        $('#header').load('header.html');
+        $('#footer').load('footer.html');
+    </script>
+    <!-- Using Google Charts -->
+    <script type="text/javascript"
+        src="https://www.google.com/jsapi?autoload={
+            'modules':[{
+                'name':'visualization',
+                'version':'1',
+                'packages':['corechart']
+            }]
+        }"></script>
+    <script type="text/javascript">
+        google.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Minute',  'other items',  'this item'],
+                ['0',       0,              0],
+                ['5',       5,              10],
+                ['10',      10,             15],
+                ['15',      20,             2],
+                ['20',      20,             3],
+                ['25',      20,             5],
+                ['30',      10,             8],
+                ['35',      15,             10]
+            ]);
+            var options = {
+                title: 'Avg gold earned since item purchase',
+                legend: { position: 'bottom' }
+            };
+            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+            chart.draw(data, options);
+        }
+
+    </script>
+    {% endblock %}
+</body>
+</html>
