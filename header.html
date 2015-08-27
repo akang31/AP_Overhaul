@@ -37,23 +37,27 @@
 <script src="js/typeahead.js"></script>
 <script type="text/javascript">
     // Taken from https://github.com/bassjobsen/Bootstrap-3-Typeahead
-    var array = ['Audi', 'BMW', 'Bugatti', 'Ferrari', 'Ford', 'Lamborghini', 'Mercedes Benz', 'Porsche', 'Rolls-Royce', 'Volkswagen'];
+    var everyKey = new Array();
+    var champKey = ['Aatrox', 'Ahri', 'Akali', 'Alistar', 'Amumu', 'Anivia', 'Annie', 'Ashe', 'Azir', 'Bard', 'Blitzcrank', 'Brand', 'Braum', 'Caitlyn', 'Cassiopeia', 'ChoGath', 'Corki', 'Darius', 'DrMundo', 'Diana', 'Draven', 'Ekko', 'Elise', 'Evelynn', 'Ezreal', 'Fiddlesticks', 'Fiora', 'Fizz', 'Galio', 'Gangplank', 'Garen', 'Gnar', 'Gragas', 'Graves', 'Hecarim', 'Heimerdinger', 'Irelia', 'Janna', 'JarvanIV', 'Jax', 'Jayce', 'Jinx', 'Kalista', 'Karma', 'Karthus', 'Kassadin', 'Katarina', 'Kayle', 'Kennen', 'KhaZix', 'KogMaw', 'LeBlanc', 'Lee Sin', 'Leona', 'Lissandra', 'Lucian', 'Lulu', 'Lux', 'Malphite', 'Malzahar', 'Maokai', 'MasterYi', 'Miss Fortune', 'Mordekaiser', 'Morgana', 'Nami', 'Nasus', 'Nautilus', 'Nidalee', 'Nocturne', 'Nunu', 'Olaf', 'Orianna', 'Pantheon', 'Poppy', 'Quinn', 'Rammus', 'RekSai', 'Renekton', 'Rengar', 'Riven', 'Rumble', 'Ryze', 'Sejuani', 'Shaco', 'Shen', 'Shyvana', 'Singed', 'Sion', 'Sivir', 'Skarner', 'Sona', 'Soraka', 'Swain', 'Syndra', 'TahmKench', 'Talon', 'Taric', 'Teemo', 'Thresh', 'Tristana', 'Trundle', 'Tryndamere', 'TwistedFate', 'Twitch', 'Udyr', 'Urgot', 'Varus', 'Vayne', 'Veigar', 'VelKoz', 'Vi', 'Viktor', 'Vladimir', 'Volibear', 'Warwick', 'Wukong', 'Xerath', 'XinZhao', 'Yasuo', 'Yorick', 'Zac', 'Zed', 'Ziggs', 'Zilean', 'Zyra'];
+    var champVal = [266, 103, 84, 12, 32, 34, 1, 22, 268, 432, 53, 63, 201, 51, 69, 31, 42, 122, 131, 36, 119, 245, 60, 28, 81, 9, 114, 105, 3, 41, 86, 150, 79, 104, 120, 74, 39, 40, 59, 24, 126, 222, 429, 43, 30, 38, 55, 10, 85, 121, 96, 7, 64, 89, 127, 136, 117, 99, 54, 90, 57, 11, 21, 82, 25, 267, 75, 111, 76, 56, 20, 2, 61, 80, 78, 133, 33, 421, 58, 107, 92, 68, 13, 113, 35, 98, 102, 27, 14, 15, 72, 37, 16, 50, 134, 223, 91, 44, 17, 412, 18, 48, 23, 4, 29, 77, 6, 110, 67, 45, 161, 254, 112, 8, 106, 19, 62, 101, 5, 157, 83, 154, 238, 115, 26, 143];
+    for(var i = 0; i < champKey.length; i++)
+        everyKey.push(champKey[i]);
     $(document).ready(function(){
         $('.typeahead').typeahead({
-            source: array,
+            source: everyKey,
             showHintOnFocus: true
         });
-    }); 
-
-    // Getting data with json
-    // $.get('example_collection.json', function(data){
-    //     $("#name").typeahead({ source:data });
-    // },'json');
-    // //example_collection.json
-    // // ["item1","item2","item3"]
+    });
     function goLink() {
         var keyword = $('#searchInput').val();
-        if(jQuery.inArray(keyword, array) >= 0)
-            window.location.href = "http://localhost:8000/champPage.html#" + keyword;
+        if(jQuery.inArray(keyword, everyKey) >= 0) {
+            // var index = jQuery.inArray(keyword, itemKey);
+            // if(index >= 0)
+            //     window.location.href = "http://localhost:8000/itemPage.html#" + itemVal[index];
+            index = jQuery.inArray(keyword, champKey);
+            console.log(index);
+            if(index >= 0)
+                window.location.href = "http://localhost:8000/champPage.html#" + champVal[index];
+        }
     }
 </script>
