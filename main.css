@@ -10,7 +10,7 @@ html, body {
 }
 
 #big {
-    background-color: #191970;
+    background-image: url("img/background.jpg");
     height: 100%;
     position: fixed;
     top: 0;
@@ -19,6 +19,16 @@ html, body {
     bottom: 0;
     overflow-y: scroll;
 }
+
+@media screen and (max-width: 640px){
+    body {
+        /* option 1: remove background altogether */
+        background: #fff;
+
+        /* option 2: serve a much smaller background */
+        /*background: #ABCDEF url(muchSmallerBackground.jpg);*/
+    }
+} 
 
 .glass_container {
     background-color: rgba(255, 255, 255, .8);
@@ -36,11 +46,6 @@ html, body {
     font-size: 20px;
 }
 
-.stats {
-    color: white;
-    margin-top: 10px;
-}
-
 .borderless td, .borderless th {
     border: none !important;
 }
@@ -52,6 +57,8 @@ table {
 paper-card {
     width: 100%;
     margin-top: 30px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
 }
 
 .card-content {
