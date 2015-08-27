@@ -10,12 +10,50 @@
         <a href="/itemPage.html" type="button" class="btn nav_buttons">Item Pages</a>
         <a href="/champPage.html" type="button" class="btn nav_buttons">Champ Pages</a>
         <div class="form-group right-inner-addon">
-            <i class="icon-search"></i>
-            <input style="margin-top:20px" 
-                    type="search" 
-                    class="form-control" 
+            <input style="margin-top:20px; font-size:20px; height:30px;" 
+                    type="text" 
+                    class="form-control typeahead" 
                     id="searchInput" 
+                    autocomplete="off"
+                    data-provide="typeahead"
+                    onkeydown="if (event.keyCode == 13) { goLink(); return false; }"
                     placeholder="Search for a champion/item">
         </div>
     </div>
 </div>
+<style type="text/css">
+    .dropdown-menu {
+        margin-top: 20px;
+        width: -moz-calc(100% - 30px);
+        width: -webkit-calc(100% - 30px);
+        width: calc(100% - 30px);
+    }
+    .dropdown-menu li {
+        font-size: 20px;
+        width: 100%;
+    }
+</style>
+<script src="js/jquery.js"></script>
+<script src="js/typeahead.js"></script>
+<script type="text/javascript">
+    // Taken from https://github.com/bassjobsen/Bootstrap-3-Typeahead
+    var array = ['Audi', 'BMW', 'Bugatti', 'Ferrari', 'Ford', 'Lamborghini', 'Mercedes Benz', 'Porsche', 'Rolls-Royce', 'Volkswagen'];
+    $(document).ready(function(){
+        $('.typeahead').typeahead({
+            source: array,
+            showHintOnFocus: true
+        });
+    }); 
+
+    // Getting data with json
+    // $.get('example_collection.json', function(data){
+    //     $("#name").typeahead({ source:data });
+    // },'json');
+    // //example_collection.json
+    // // ["item1","item2","item3"]
+    function goLink() {
+        var keyword = $('#searchInput').val();
+        if(jQuery.inArray(keyword, array) >= 0)
+            window.location.href = "http://localhost:8000/champPage.html#" + keyword;
+    }
+</script>
