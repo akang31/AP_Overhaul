@@ -35,23 +35,25 @@
         Everything below is just a replaceable content template -->
         <div class="conatiner-fluid" style="margin-top:20px;">
             <div class="row">
-                <div class="col-md-1">
-                    <img class="img-responsive pull-right"
-                            alt="Responsive image"
-                            style="width:100px; height:auto;"
-                            src={{champImage|safe}} />
-                </div>
-                <div class="col-md-2">
-                    <div class="itemName">
-                        {{champName}}
-                    </div>
+              <div class="col-md-3">
+                    <paper-card id="nameBox" style="margin-top:0px; margin-bottom:30px;">
+                        <div class="card-content" style="height:150px">
+                            <img class="img-responsive pull-left"
+                                alt="Responsive image"
+                                style="width:100px; height:auto; margin:10px; margin-right:30px;"
+                                src={{champImage|safe}} />
+                            <div style="margin:10px; font-size:30px;">
+                                <strong>{{champName}}</strong>
+                            </div>
+                        </div>
+                    </paper-card>
                 </div>
                 <div class="col-md-6">
                     <!-- Next step - make the white background expand with the items as they appear
                          Next next step - have 5.11 show up first at the center of the div, then after the
                                           center arrow appears, have it shift to the left then 5.14 shows
                                           on the right -->
-                    <paper-card id="champRankItemCard" heading="Most popular items in order">
+                    <paper-card id="champRankItemCard" heading="Most popular items in order" style="margin-top:0px;">
                         <div class="card-content row">
                             <div class="col-md-5 text-center">
                                 <div id="order0">
@@ -84,7 +86,7 @@
                     </paper-card>
                 </div>
                 <div class="col-md-3">
-                    <paper-card id="someCard" heading="Some card">
+                    <paper-card id="someCard" heading="Some card" style="margin-top:0px;">
                         <div class="card-content">
                             Something goes here
                         </div>
