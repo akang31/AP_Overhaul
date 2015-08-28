@@ -31,41 +31,12 @@ def init():
         global itemData511
         global itemData514
         global champData
-        handler514 =  urllib2.urlopen("https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?version=5.14.1&itemListData=gold&api_key=62763b3a-0683-48f1-9efc-1fcad131299c")
+        handler514 =  open('item514.txt')#urllib2.urlopen("https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?version=5.14.1&itemListData=gold&api_key=62763b3a-0683-48f1-9efc-1fcad131299c")
         itemData514 = json.loads(handler514.read())
-        handler511 =  urllib2.urlopen("https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?version=5.11.1&itemListData=gold&api_key=62763b3a-0683-48f1-9efc-1fcad131299c")
+        handler511 =  open('item511.txt')#urllib2.urlopen("https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?version=5.11.1&itemListData=gold&api_key=62763b3a-0683-48f1-9efc-1fcad131299c")
         itemData511 = json.loads(handler511.read())
-        handler = urllib2.urlopen("https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?dataById=true&api_key=62763b3a-0683-48f1-9efc-1fcad131299c")
+        handler = open('champ.txt')#urllib2.urlopen("https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?dataById=true&api_key=62763b3a-0683-48f1-9efc-1fcad131299c")
         champData = json.loads(handler.read())
-
-def recurse(lista, parent):
-    if isinstance(lista, list):
-        for i in range(len(lista)):
-            #print i
-            a = JSON(value=str(i), done="F")
-            a.save()
-            #print "saved"
-            parent.entries.add(a)
-            parent.save()
-            #print "added to parent"
-            recurse(lista[i], a)
-    elif isinstance(lista, dict):
-        #print lista.keys()
-        for i in lista:
-            #print i
-            a = JSON(value=i, done="F")
-            a.save()
-            #print "saved dict"
-            parent.entries.add(a)
-            parent.save()
-        #    print "added to parent dict"
-            recurse(lista[i], a)
-    else:
-        print "TERMINAL ", lista
-        a = JSON(value=str(lista), done="T")
-        a.save()
-        parent.entries.add(a)
-        parent.save()
 
 def table(request):
     init()
