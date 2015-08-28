@@ -5,9 +5,11 @@ from pages.models import JSON
 import urllib2
 import json
 def init():
+    working = 0
     try:
         global f
         a = f['championPickRate']
+        working = 1
     except Exception:
         print 'reopening'
         f1 = open('NA-5.14Analysis.json')
@@ -16,23 +18,25 @@ def init():
     try:
         global g
         a = g['championPickRate']
+        working = 1
     except Exception:
         print 'reopening'
         f2 = open('NA-5.11Analysis.json')
         global g
         g = json.loads(f2.read())
-    f3 = open('idToChamp.txt')
-    global idToChamp
-    idToChamp = json.loads(f3.read())
-    global itemData511
-    global itemData514
-    global champData
-    handler514 =  urllib2.urlopen("https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?version=5.14.1&itemListData=gold&api_key=62763b3a-0683-48f1-9efc-1fcad131299c")
-    itemData514 = json.loads(handler514.read())
-    handler511 =  urllib2.urlopen("https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?version=5.11.1&itemListData=gold&api_key=62763b3a-0683-48f1-9efc-1fcad131299c")
-    itemData511 = json.loads(handler511.read())
-    handler = urllib2.urlopen("https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?dataById=true&api_key=62763b3a-0683-48f1-9efc-1fcad131299c")
-    champData = json.loads(handler.read())
+    if working == 0:
+        f3 = open('idToChamp.txt')
+        global idToChamp
+        idToChamp = json.loads(f3.read())
+        global itemData511
+        global itemData514
+        global champData
+        handler514 =  urllib2.urlopen("https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?version=5.14.1&itemListData=gold&api_key=62763b3a-0683-48f1-9efc-1fcad131299c")
+        itemData514 = json.loads(handler514.read())
+        handler511 =  urllib2.urlopen("https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?version=5.11.1&itemListData=gold&api_key=62763b3a-0683-48f1-9efc-1fcad131299c")
+        itemData511 = json.loads(handler511.read())
+        handler = urllib2.urlopen("https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?dataById=true&api_key=62763b3a-0683-48f1-9efc-1fcad131299c")
+        champData = json.loads(handler.read())
 
 def recurse(lista, parent):
     if isinstance(lista, list):
@@ -85,8 +89,11 @@ def table(request):
         wrlist.append(addList)
     show['wrlist'] = wrlist
     return render(request, 'pages/table.html', show)
+import time
 def champPage(request, champID):
+
     init()
+    t0 = time.time()
     show = {}
     show['champName'] = champData['data'][str(champID)]['name']
     show['champImage'] = '"/static/img/champs/'+str(idToChamp[str(champID)])+'"'
@@ -118,10 +125,15 @@ def champPage(request, champID):
         add['name'] = itemData514['data'][str(items[i])]['name']
         itemList_514.append(add)
     show['item_list514'] = itemList_514
+    t1 = time.time()
+
+    total = t1-t0
+    print str(total) + " TIMING DATA"
     return render(request, 'pages/champPage.html', show)
 import re
 def itemPage(request, itemID):
     init()
+    t0 = time.time()
     show = {}
     # wr 511
     show['itemName'] = itemData511['data'][str(itemID)]['name']
@@ -167,6 +179,10 @@ def itemPage(request, itemID):
         add['box'] = '\'{"icon":"/static/img/champs/wukong.png", "name":"Wukong", "delta":"2"}\''
         ranks514.append(add)
     show['ranked_514'] = ranks514
+    t1 = time.time()
+
+    total = t1-t0
+    print str(total) + " TIMING DATA"
     return render(request, 'pages/itemPage.html', show)
 
 
