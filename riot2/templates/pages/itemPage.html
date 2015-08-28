@@ -36,60 +36,60 @@
                         {{ itemName}}
                     </div>
                 </div>
-                <div class="col-md-9 row">
-                    <div class="itemName" style="margin-bottom:10px;">
-                        Basic Item Stats:
-                    </div>
-                    <div class="col-md-6">
-                        <div class="itemName">
-                            5.11
+                <div class="col-md-9">
+                    <paper-card id="itemStats" heading="Basic Item Stats:" style="margin-top:0px;">
+                        <div class="card-content row">
+                            <div class="col-md-6">
+                                <div style="font-size:20px;">
+                                    5.11
+                                </div>
+                            <div>
+                                <table class="table borderless">
+                                    <tr>
+                                        <th>Raw Stats</th>
+                                      <td> {{ itemRawStats511}} </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Passives</th>
+                                        <td> {{ itemPassiveStats511 }} </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Actives</th>
+                                        <td> {{itemActiveStats511 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Gold</th>
+                                        <td> {{itemCost511}} </td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
-                        <div class="stats">
-                            <table class="table borderless">
-                                <tr>
-                                    <th>Raw Stats</th>
-                                  <td> {{ itemRawStats511}} </td>
-                                </tr>
-                                <tr>
-                                    <th>Passives</th>
-                                    <td> {{ itemPassiveStats511 }} </td>
-                                </tr>
-                                <tr>
-                                    <th>Actives</th>
-                                    <td> {{itemActiveStats511 }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Gold</th>
-                                    <td> {{itemCost511}} </td>
-                                </tr>
-                            </table>
+                        <div class="col-md-6">
+                            <div style="font-size:20px;">
+                                5.14
+                            </div>
+                            <div class="stats">
+                                <table class="table borderless">
+                                    <tr>
+                                        <th>Raw Stats</th>
+                                        <td> {{itemRawStats514}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Passives</th>
+                                        <td>{{itemPassiveStats514}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Actives</th>
+                                        <td>{{itemActiveStats514}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Gold</th>
+                                        <td> {{itemCost514}}</td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="itemName">
-                            5.14
-                        </div>
-                        <div class="stats">
-                            <table class="table borderless">
-                                <tr>
-                                    <th>Raw Stats</th>
-                                    <td> {{itemRawStats514}}</td>
-                                </tr>
-                                <tr>
-                                    <th>Passives</th>
-                                    <td>{{itemPassiveStats514}}</td>
-                                </tr>
-                                <tr>
-                                    <th>Actives</th>
-                                    <td>{{itemActiveStats514}}</td>
-                                </tr>
-                                <tr>
-                                    <th>Gold</th>
-                                    <td> {{itemCost514}}</td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
+                    </paper-card>
                 </div>
             </div>
         </div>
