@@ -21,9 +21,12 @@ def init():
         f2 = open('NA-5.11Analysis.json')
         global g
         g = json.loads(f2.read())
-
+    f3 = open('idToChamp.txt')
+    global idToChamp
+    idToChamp = json.loads(f3.read())
     global itemData511
     global itemData514
+    global champData
     handler514 =  urllib2.urlopen("https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?version=5.14.1&itemListData=gold&api_key=62763b3a-0683-48f1-9efc-1fcad131299c")
     itemData514 = json.loads(handler514.read())
     handler511 =  urllib2.urlopen("https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?version=5.11.1&itemListData=gold&api_key=62763b3a-0683-48f1-9efc-1fcad131299c")
@@ -82,13 +85,47 @@ def table(request):
         wrlist.append(addList)
     show['wrlist'] = wrlist
     return render(request, 'pages/table.html', show)
+def champPage(request, champID):
+    init()
+    show = {}
+    show['champName'] = champData['data'][str(champID)]['name']
+    show['champImage'] = '"/static/img/champs/'+str(idToChamp[str(champID)])+'"'
+    itemList_511 = []
+    items = sorted(g['championItemOrderWR'][str(champID)], key=lambda key:
+            -float(g['championItemOrderWR'][str(champID)][key]['7']['W'])/
+            (g['championItemOrderWR'][str(champID)][key]['7']['L']+
+            g['championItemOrderWR'][str(champID)][key]['7']['W'])
+            if (g['championItemOrderWR'][str(champID)][key]['7']['L']+
+            g['championItemOrderWR'][str(champID)][key]['7']['W']) > 50 else 0 )
+    for i in range(1,10):
+        add = {}
+        add['order'] = '"order'+str(i)+'"'
+        add['img'] = '"/static/img/511/'+str(items[i])+'.png"'
+        add['name'] = itemData511['data'][str(items[i])]['name']
+        itemList_511.append(add)
+    show['item_list511'] = itemList_511
+    itemList_514 = []
+    items = sorted(f['championItemOrderWR'][str(champID)], key=lambda key:
+            -float(f['championItemOrderWR'][str(champID)][key]['7']['W'])/
+            (f['championItemOrderWR'][str(champID)][key]['7']['L']+
+            f['championItemOrderWR'][str(champID)][key]['7']['W'])
+            if (f['championItemOrderWR'][str(champID)][key]['7']['L']+
+            f['championItemOrderWR'][str(champID)][key]['7']['W']) > 50 else 0 )
+    for i in range(1,10):
+        add = {}
+        add['order'] = '"order'+str(i)+'"'
+        add['img'] = '"/static/img/514/'+str(items[i])+'.png"'
+        add['name'] = itemData514['data'][str(items[i])]['name']
+        itemList_514.append(add)
+    show['item_list514'] = itemList_514
+    return render(request, 'pages/champPage.html', show)
 import re
 def itemPage(request, itemID):
     init()
     show = {}
     # wr 511
     show['itemName'] = itemData511['data'][str(itemID)]['name']
-    show['icon'] = '/static/img/abyssal-scepter.gif'
+    show['icon'] = '/static/img/511/'+str(itemID)+".png"
     show['itemRawStats511'] = re.findall('<stats>(.*?)<\\\/stats\>', itemData511['data'][str(itemID)]['description'], re.DOTALL) if 'stats' in itemData511['data'][str(itemID)]['description'] else ''
     show['itemPassiveStats511'] = re.findall('<unique>(.*?)<\\\/unique\>', itemData511['data'][str(itemID)]['description'], re.DOTALL) + re.findall('<\\\/unique\>(.*?)', itemData511['data'][str(itemID)]['description'], re.DOTALL) if 'unique' in itemData511['data'][str(itemID)]['description'] else ''
     show['itemActiveStats511'] = "dinosaur"

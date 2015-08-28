@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% load staticfiles %}
+  <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'animations.css' %}" />
+  <!-- Bootstrap core CSS -->
+  <link href="{% static "bower_components/bootstrap/dist/css/bootstrap.min.css" %}" rel="stylesheet">
+  <!-- Bootstrap theme -->
+  <link href="{% static "bower_components/bootstrap/dist/css/bootstrap-theme.min.css" %}" rel="stylesheet">
+  <!-- Polymer elements -->
+  <link rel="import" href="{% static "bower_components/polymer/polymer.html" %}">
+  <link rel="import" href="{% static "bower_components/paper-card/paper-card.html" %}">
+  <link rel="import" href="{% static "bower_components/paper-button/paper-button.html" %}">
+  <link rel="import" href="{% static "bower_components/iron-icon/iron-icon.html" %}">
+  <link rel="import" href="{% static "bower_components/iron-icons/iron-icons.html" %}">
+
+  <link rel="import" href="{% static "champ-box.html" %}">
+    <style type="text/css">
+    paper-card div div div {
+        height: 50px;
+    }
+    span {
+        font-size: 25px;
+        margin-left: 20px;
+    }
+    </style>
+</head>
+<body>
+    <div class="container-fluid" id="big">
+        <div id='header'></div>
+
+        <!-- The below content would be replaced with specific item information via ajax calls
+        Everything below is just a replaceable content template -->
+        <div class="conatiner-fluid" style="margin-top:20px;">
+            <div class="row">
+                <div class="col-md-1">
+                    <img class="img-responsive pull-right"
+                            alt="Responsive image"
+                            style="width:100px; height:auto;"
+                            src={{champImage|safe}} />
+                </div>
+                <div class="col-md-2">
+                    <div class="itemName">
+                        {{champName}}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <!-- Next step - make the white background expand with the items as they appear
+                         Next next step - have 5.11 show up first at the center of the div, then after the
+                                          center arrow appears, have it shift to the left then 5.14 shows
+                                          on the right -->
+                    <paper-card id="champRankItemCard" heading="Most popular items in order">
+                        <div class="card-content row">
+                            <div class="col-md-5 text-center">
+                                <div id="order0">
+                                    <strong style="font-size:25px;">5.11</strong>
+                                </div>
+                                {% block content %}
+                                {% for item in item_list511 %}
+                                <div id={{item.order}}>
+                                  <img src = {{item.img|safe}} class="icon"/>
+                                  <span> {{item.name}} </span>
+                                </div>
+                                {% endfor %}
+
+                            </div>
+                            <div class="col-md-2 text-center" id="centerIcon">
+                                <iron-icon icon="chevron-right" style="width:80px;height:auto;margin-top:260px;"></iron-icon>
+                            </div>
+                            <div class="col-md-5 text-center">
+                                <div id="order0">
+                                    <strong style="font-size:25px;">5.14</strong>
+                                </div>
+                                {% for item in item_list514 %}
+                                <div id={{item.order}}>
+                                  <img src = {{item.img|safe}} class="icon"/>
+                                  <span> {{item.name}} </span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </paper-card>
+                </div>
+                <div class="col-md-3">
+                    <paper-card id="someCard" heading="Some card">
+                        <div class="card-content">
+                            Something goes here
+                        </div>
+                    </paper-card>
+                </div>
+            </div>
+        </div>
+
+        <div id='footer'></div>
+    </div>
+{% endblock %}
+    <script src="/static/js/jquery.js"></script>
+    <script>
+        $('#header').load('/static/header.html');
+        $('#footer').load('/static/footer.html');
+    </script>
+</body>
+</html>
