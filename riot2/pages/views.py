@@ -101,6 +101,7 @@ def champPage(request, champID):
     total = t1-t0
     print str(total) + " TIMING DATA"
     return render(request, 'pages/champPage.html', show)
+
 import re
 def itemPage(request, itemID):
     init()
@@ -109,45 +110,58 @@ def itemPage(request, itemID):
     # wr 511
     show['itemName'] = itemData511['data'][str(itemID)]['name']
     show['icon'] = '/static/img/511/'+str(itemID)+".png"
-    show['itemRawStats511'] = re.findall('<stats>(.*?)<\\\/stats\>', itemData511['data'][str(itemID)]['description'], re.DOTALL) if 'stats' in itemData511['data'][str(itemID)]['description'] else ''
-    show['itemPassiveStats511'] = re.findall('<unique>(.*?)<\\\/unique\>', itemData511['data'][str(itemID)]['description'], re.DOTALL) + re.findall('<\\\/unique\>(.*?)', itemData511['data'][str(itemID)]['description'], re.DOTALL) if 'unique' in itemData511['data'][str(itemID)]['description'] else ''
+    print itemData511['data'][str(itemID)]['description']
+    show['itemRawStats511'] = re.findall('<stats>(.*?)<\\/stats>', itemData511['data'][str(itemID)]['description'], re.DOTALL)[0] if 'stats' in itemData511['data'][str(itemID)]['description'] else ''
+    show['itemPassiveStats511'] = re.findall('<unique>(.*?)<\\/unique>', itemData511['data'][str(itemID)]['description'], re.DOTALL) + re.findall('<\\\/unique\>(.*?)', itemData511['data'][str(itemID)]['description'], re.DOTALL) if 'unique' in itemData511['data'][str(itemID)]['description'] else ''
     show['itemActiveStats511'] = "dinosaur"
     show['itemCost511'] = itemData511['data'][str(itemID)]['gold']['total']
-    show['itemRawStats514'] = re.findall('<stats>(.*?)<\\\/stats\>', itemData514['data'][str(itemID)]['description'], re.DOTALL) if 'stats' in itemData514['data'][str(itemID)]['description'] else ''
-    show['itemPassiveStats514'] = re.findall('<unique>(.*?)<\\\/unique\>', itemData514['data'][str(itemID)]['description'], re.DOTALL) + re.findall('<\\\/unique\>(.*?)', itemData514['data'][str(itemID)]['description'], re.DOTALL) if 'unique' in itemData514['data'][str(itemID)]['description'] else ''
-    show['itemActiveStats514'] = "dinosaur"
+    show['itemRawStats514'] = re.findall('<stats>(.*?)<\\/stats>', itemData514['data'][str(itemID)]['description'], re.DOTALL)[0] if 'stats' in itemData514['data'][str(itemID)]['description'] else ''
+    show['itemPassiveStats514'] = re.findall('<unique>(.*?)<\\/unique>', itemData514['data'][str(itemID)]['description'], re.DOTALL) + re.findall('<\\\/unique\>(.*?)', itemData514['data'][str(itemID)]['description'], re.DOTALL) if 'unique' in itemData514['data'][str(itemID)]['description'] else ''
+    show['itemActiveStats514'] = itemData514['data'][str(itemID)]['description']
     show['itemCost514'] = itemData514['data'][str(itemID)]['gold']['total']
 
     show['GPM511'] = 1
     show['GPM514'] = 1
     show['GPMdiff'] = 1
-    show['WR511'] = getWR(g['overallItemData'][str(itemID)]['7'])
-    show['WR514'] = getWR(f['overallItemData'][str(itemID)]['7'])
+    show['WR511'] = round(getWR(g['overallItemData'][str(itemID)]['7']), 3)
+    show['WR514'] = round(getWR(f['overallItemData'][str(itemID)]['7']), 3)
     show['WRdiff'] = -show['WR511']+show['WR514']
+
+    show['WRn'] = show['WRdiff'] < 0
+
     show['iscore511'] = 1
     show['iscore514'] = 1
     show['iscorediff'] = 1
     show['pickRate511'] = g['itemPickRate'][str(itemID)]
     show['pickRate514'] = f['itemPickRate'][str(itemID)]
     show['pickRateDiff'] = show['pickRate514'] - show['pickRate511']
-    show['completion511'] = g['itemTime'][str(itemID)]
-    show['completion514'] = f['itemTime'][str(itemID)]
+
+    show['PRn'] = show['pickRateDiff'] < 0
+
+    show['completion511'] = round(float(g['itemTime'][str(itemID)])/60000, 3)
+    show['completion514'] = round(float(f['itemTime'][str(itemID)])/60000, 3)
     show['completionDiff'] = show['completion514']-show['completion511']
+
+    show['cn'] = show['completionDiff'] < 0
+
     show['rank511'] = 1
     show['rank514'] = 1
     show['rankdiff'] = 1
+
+    show['rn'] = show['rankdiff'] < 0
+
     ranks511 = []
     for i in range(5):
         add = {}
         add['rank'] = i+1
-        add['box'] = '\'{"icon":"/static/img/champs/wukong.png", "name":"Wukong", "delta":"2"}\''
+        add['box'] = '\'{"icon":"/static/img/champs/MonkeyKing.png", "name":"Wukong", "delta":"2"}\''
         ranks511.append(add)
     show['ranked_511'] = ranks511
     ranks514 = []
     for i in range(5):
         add = {}
         add['rank'] = i+1
-        add['box'] = '\'{"icon":"/static/img/champs/wukong.png", "name":"Wukong", "delta":"2"}\''
+        add['box'] = '\'{"icon":"/static/img/champs/MonkeyKing.png", "name":"Wukong", "delta":"-2"}\''
         ranks514.append(add)
     show['ranked_514'] = ranks514
     t1 = time.time()

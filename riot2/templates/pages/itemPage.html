@@ -31,8 +31,8 @@
                 <div class="col-md-3">
                     <paper-card id="nameBox" style="margin-top:0px; margin-bottom:30px;">
                         <div class="card-content" style="height:150px">
-                            <img class="img-responsive pull-left" 
-                                alt="Responsive image" 
+                            <img class="img-responsive pull-left"
+                                alt="Responsive image"
                                 style="width:100px; height:auto; margin:10px; margin-right:30px;" src="{{ icon }}" />
                             <div style="margin:10px; font-size:30px;">
                                 <strong>{{itemName}}</strong>
@@ -51,15 +51,15 @@
                                 <table class="table borderless">
                                     <tr>
                                         <th>Raw Stats</th>
-                                      <td> {{ itemRawStats511}} </td>
+                                      <td> {{ itemRawStats511|safe}} </td>
                                     </tr>
                                     <tr>
                                         <th>Passives</th>
-                                        <td> {{ itemPassiveStats511 }} </td>
+                                        <td> {{ itemPassiveStats511|safe }} </td>
                                     </tr>
                                     <tr>
                                         <th>Actives</th>
-                                        <td> {{itemActiveStats511 }}</td>
+                                        <td> {{itemActiveStats511 |safe}}</td>
                                     </tr>
                                     <tr>
                                         <th>Gold</th>
@@ -76,15 +76,15 @@
                                 <table class="table borderless">
                                     <tr>
                                         <th>Raw Stats</th>
-                                        <td> {{itemRawStats514}}</td>
+                                        <td> {{itemRawStats514|safe}}</td>
                                     </tr>
                                     <tr>
                                         <th>Passives</th>
-                                        <td>{{itemPassiveStats514}}</td>
+                                        <td>{{itemPassiveStats514|safe}}</td>
                                     </tr>
                                     <tr>
                                         <th>Actives</th>
-                                        <td>{{itemActiveStats514}}</td>
+                                        <td>{{itemActiveStats514|safe}}</td>
                                     </tr>
                                     <tr>
                                         <th>Gold</th>
@@ -107,7 +107,11 @@
                                 <!-- on mouse-hover, explains what GPM is and how we calculated it-->
                                 <th>GPM</th>
                                 <td class="text-right">{{GPM511}} <iron-icon icon="arrow-forward"></iron-icon> {{GPM514}}</td>
-                                <td class="text-right delta_green"><iron-icon icon="add"></iron-icon>{{GPMdiff}}</td>
+                                {% if GPMn %}
+                                  <td class="text-right delta_red"></iron-icon>{{GPMdiff}}</td>
+                                {% else %}
+                                  <td class="text-right delta_green"><iron-icon icon="add"></iron-icon>{{GPMdiff}}</td>
+                                {% endif %}
                             </tr>
                             <tr>
                                 <td style="border-style:none;" colspan="3">
@@ -118,7 +122,11 @@
                                 <th>Win rate</th>
                                 <!-- add green color for positive deltas and red color for negative deltas -->
                                 <td class="text-right">{{WR511}}<iron-icon icon="arrow-forward"></iron-icon> {{WR514}}</td>
-                                <td class="text-right delta_red"><iron-icon icon="remove"></iron-icon>{{WRdiff}}</td>
+                                {% if WRn %}
+                                  <td class="text-right delta_red"></iron-icon>{{WRdiff}}</td>
+                                {% else %}
+                                  <td class="text-right delta_green"><iron-icon icon="add"></iron-icon>{{WRdiff}}</td>
+                                {% endif %}
                             </tr>
                             <tr>
                                 <th>Impact Score</th>
@@ -132,7 +140,11 @@
                         <table class="table">
                             <tr>
                                 <td class="text-right">{{pickRate511}} <iron-icon icon="arrow-forward"></iron-icon> {{pickRate514}}</td>
-                                <td class="text-right"><iron-icon icon="add"></iron-icon>{{pickRateDiff}}</td>
+                                {% if PRn %}
+                                  <td class="text-right delta_red"></iron-icon>{{pickRateDiff}}</td>
+                                {% else %}
+                                  <td class="text-right delta_green"><iron-icon icon="add"></iron-icon>{{pickRateDiff}}</td>
+                                {% endif %}
                             </tr>
                         </table>
                     </div>
@@ -144,7 +156,11 @@
                         <table class="table">
                             <tr>
                                 <td class="text-right">{{completion511}} <iron-icon icon="arrow-forward"></iron-icon> {{completion514}}</td>
-                                <td class="text-right"><iron-icon icon="add"></iron-icon>{{completionDiff}}</td>
+                                {% if cn %}
+                                  <td class="text-right delta_red"></iron-icon>{{completionDiff}}</td>
+                                {% else %}
+                                  <td class="text-right delta_green"><iron-icon icon="add"></iron-icon>{{completionDiff}}</td>
+                                {% endif %}
                             </tr>
                         </table>
                     </div>
@@ -154,7 +170,11 @@
                         <table class="table">
                             <tr>
                                 <td class="text-right">{{WR511}} <iron-icon icon="arrow-forward"></iron-icon> {{WR514}}</td>
-                                <td class="text-right"><iron-icon icon="add"></iron-icon>{{WRdiff}}</td>
+                                {% if WRn %}
+                                  <td class="text-right delta_red"></iron-icon>{{WRdiff}}</td>
+                                {% else %}
+                                  <td class="text-right delta_green"><iron-icon icon="add"></iron-icon>{{WRdiff}}</td>
+                                {% endif %}
                             </tr>
                         </table>
                     </div>
@@ -164,7 +184,11 @@
                         <table class="table">
                             <tr>
                                 <td class="text-right">{{rank511}} <iron-icon icon="arrow-forward"></iron-icon> {{rank514}}</td>
-                                <td class="text-right delta_green"><iron-icon icon="expand-less"></iron-icon>{{rankdiff}}</td>
+                                {% if rn %}
+                                  <td class="text-right delta_red"></iron-icon>{{rankdiff}}</td>
+                                {% else %}
+                                  <td class="text-right delta_green"><iron-icon icon="add"></iron-icon>{{rankdiff}}</td>
+                                {% endif %}
                             </tr>
                         </table>
                     </div>
