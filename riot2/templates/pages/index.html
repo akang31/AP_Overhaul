@@ -1,22 +1,74 @@
-<html>
-<style>
-.rTable {   	display: table;   	width: 100%; }
-.rTableRow {   	display: table-row; }
-.rTableHeading {   	display: table-header-group;   	background-color: #ddd; }
-.rTableCell, .rTableHead {   	display: table-cell;   	padding: 3px 10px;   	border: 1px solid #999999; }
-.rTableHeading {   	display: table-header-group;   	background-color: #ddd;   	font-weight: bold; }
-.rTableFoot {   	display: table-footer-group;   	font-weight: bold;   	background-color: #ddd; }
-.rTableBody {   	display: table-row-group; }
-</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/static/main.css">
+    <!-- Bootstrap core CSS -->
+    <link href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="/xstatic/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <style type="text/css">
+        td {
+            heigth: 60px;
+        }
+    </style>
+</head>
 <body>
+    <div class="container-fluid" id="big">
+        <div id='header'></div>
 
+        <div class="container" style="margin-top:30px">
+            <div class="table-responsive" style="margin-top:20px">
+                <!-- Gotta make this table sortable -->
+                <table class="table" style="color:white">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Old win-rate</th>
+                            <th>New win-rate</th>
+                            <th>Overall rank</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <img src="img/abyssal-scepter.gif" style="width:30px; height:auto" />
+                                <a href="/itemPage.html">Abyssal Scepter</a>
+                            </td>
+                            <td>20%</td>
+                            <td>50%</td>
+                            <td>^ 2</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="img/abyssal-scepter.gif" style="width:30px; height:auto" />
+                                <a href="/itemPage.html">Mejai's Soulstealer</a>
+                            </td>
+                            <td>20%</td>
+                            <td>50%</td>
+                            <td>v 1</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="img/abyssal-scepter.gif" style="width:30px; height:auto" />
+                                <a href="/itemPage.html">Rabadon's Deathcap</a>
+                            </td>
+                            <td>50%</td>
+                            <td>20%</td>
+                            <td>v 1</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="footer" style="width:100%; position:absolute; bottom:0; left:0;"></div>
+    </div>
 
-{% block content %}
-{{ wr }} <br>
-{{ pr }} <br>
-{% for item in item_list %}
-  {{ item }} <br>
-{% endfor %}
-{% endblock %}
+    <script src="js/jquery.js"></script>
+    <script>
+        $('#header').load('header.html');
+        $('#footer').load('footer.html');
+    </script>
 </body>
+
 </html>
