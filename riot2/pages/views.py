@@ -150,18 +150,51 @@ def itemPage(request, itemID):
 
     show['rn'] = show['rankdiff'] < 0
 
+    def indexOfIn(cid , array):
+        for i in range(len(array)):
+            if cid == array[i][0]:
+                print array[i][1]
+                return i
+        return -1
+    flistwr = []
+    for champ in f['championItemOrderWR']:
+        flistwr.append((champ, getWR(f['championItemOrderWR'][champ][str(itemID)]['7'])))
+    flistwr = sorted(flistwr, key = lambda champ: -float(champ[1]))
+
+    glistwr = []
+    for champ in g['championItemOrderWR']:
+        glistwr.append((champ, getWR(g['championItemOrderWR'][champ][str(itemID)]['7'])))
+    glistwr = sorted(glistwr, key = lambda champ: -float(champ[1]))
+
+    flistpr = []
+    for champ in f['itemPickRateChampion']:
+        try:
+            flistpr.append((champ, f['itemPickRateChampion'][champ][str(itemID)]))
+        except Exception:
+            flistpr.append((champ, '0'))
+    flistpr = sorted(flistpr, key = lambda champ: -float(champ[1]))
+
+    glistpr = []
+    for champ in g['itemPickRateChampion']:
+        try:
+            glistpr.append((champ, g['itemPickRateChampion'][champ][str(itemID)]))
+        except Exception:
+            glistpr.append((champ, '0'))
+    glistpr = sorted(glistpr, key = lambda champ: -float(champ[1]))
+
     ranks511 = []
     for i in range(5):
         add = {}
         add['rank'] = i+1
-        add['box'] = '\'{"icon":"/static/img/champs/MonkeyKing.png", "name":"Wukong", "delta":"2"}\''
+        add['box'] = '\'{"icon":"/static/img/champs/' + idToChamp[str(glistwr[i][0])]+'", "name":"' + champData['data'][str(glistwr[i][0])]['name'].replace('\'', "")+'", "delta": "' + str(- i + indexOfIn(glistwr[i][0], flistwr)) + '"}\''
+        print glistwr[i]
         ranks511.append(add)
     show['ranked_511'] = ranks511
     ranks514 = []
     for i in range(5):
         add = {}
         add['rank'] = i+1
-        add['box'] = '\'{"icon":"/static/img/champs/MonkeyKing.png", "name":"Wukong", "delta":"-2"}\''
+        add['box'] = '\'{"icon":"/static/img/champs/' + idToChamp[str(glistpr[i][0])]+'", "name":"' + champData['data'][str(glistpr[i][0])]['name'].replace('\'', "")+'", "delta": "' + str(- i + indexOfIn(glistpr[i][0], flistpr)) + '"}\''
         ranks514.append(add)
     show['ranked_514'] = ranks514
     t1 = time.time()
@@ -172,7 +205,7 @@ def itemPage(request, itemID):
 
 
 def getWR(data):
-    return float(data['W'])/(data['W']+data['L']) if data['W'] > 0 else 0
+    return float(data['W'])/(data['W']+data['L']) if data['W']+data['L'] > 30 else 0
 def index(request):
     # try:
     #     root = JSON.objects.get(value="root")
