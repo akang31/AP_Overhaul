@@ -19,10 +19,10 @@
   <link rel="import" href="{% static "champ-box.html" %}">
     <style type="text/css">
     paper-card div div div {
-        height: 50px;
+        height: 60px;
     }
     span {
-        font-size: 25px;
+        font-size: 20px;
         margin-left: 20px;
     }
     </style>
@@ -61,7 +61,7 @@
                                 </div>
                                 {% block content %}
                                 {% for item in item_list511 %}
-                                <div id={{item.order|safe}}>
+                                <div class="text-left" id={{item.order|safe}}>
                                   <img src = {{item.img|safe}} class="icon"/>
                                   <span> {{item.name}} </span>
                                 </div>
@@ -76,7 +76,7 @@
                                     <strong style="font-size:25px;">5.14</strong>
                                 </div>
                                 {% for item in item_list514 %}
-                                <div id={{item.order|safe}}>
+                                <div class="text-left" id={{item.order|safe}}>
                                   <img src = {{item.img|safe}} class="icon"/>
                                   <span> {{item.name}} </span>
                                 </div>
