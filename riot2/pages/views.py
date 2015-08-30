@@ -74,12 +74,14 @@ def champPage(request, champID):
             (g['championItemOrderWR'][str(champID)][key]['7']['L']+
             g['championItemOrderWR'][str(champID)][key]['7']['W'])
             if (g['championItemOrderWR'][str(champID)][key]['7']['L']+
-            g['championItemOrderWR'][str(champID)][key]['7']['W']) > 50 else 0 )
+            g['championItemOrderWR'][str(champID)][key]['7']['W']) > 30 else 0 )
     for i in range(1,10):
         add = {}
         add['order'] = '"order'+str(i)+'"'
         add['img'] = '"/static/img/511/'+str(items[i])+'.png"'
         add['name'] = itemData511['data'][str(items[i])]['name']
+        add['wr'] = round(getWR(g['championItemOrderWR'][str(champID)][str(items[i])]['7']), 3)
+        add['pr'] = round(g['itemPickRateChampion'][str(champID)][str(items[i])], 3)
         itemList_511.append(add)
     show['item_list511'] = itemList_511
     itemList_514 = []
@@ -94,6 +96,8 @@ def champPage(request, champID):
         add['order'] = '"order'+str(i)+'"'
         add['img'] = '"/static/img/514/'+str(items[i])+'.png"'
         add['name'] = itemData514['data'][str(items[i])]['name']
+        add['wr'] = round(getWR(f['championItemOrderWR'][str(champID)][str(items[i])]['7']),3)
+        add['pr'] = round(f['itemPickRateChampion'][str(champID)][str(items[i])], 3)
         itemList_514.append(add)
     show['item_list514'] = itemList_514
     t1 = time.time()
@@ -124,9 +128,22 @@ def itemPage(request, itemID):
     show['itemActiveStats514'] = itemData514['data'][str(itemID)]['description']
     show['itemCost514'] = itemData514['data'][str(itemID)]['gold']['total']
 
-    show['GPM511'] = 1
-    show['GPM514'] = 1
-    show['GPMdiff'] = 1
+    gtot1 = 0
+    ttot1 = 0
+    gtot2 = 0
+    ttot2 = 0
+    for champ in champData['data']:
+        for i in range(6):
+            gtot1 += g['championItemOrderWR'][champ][str(itemID)][str(i)]['GP']
+            ttot1 += g['championItemOrderWR'][champ][str(itemID)][str(i)]['TE']
+            gtot2 += f['championItemOrderWR'][champ][str(itemID)][str(i)]['GP']
+            ttot2 += f['championItemOrderWR'][champ][str(itemID)][str(i)]['TE']
+    show['GPM511'] = round(float(gtot1*60000)/ttot1, 3) if ttot1 > 0 else 0
+    show['GPM514'] = round(float(gtot2*60000)/ttot2, 3) if ttot2 > 0 else 0
+    show['GPMdiff'] = show['GPM514']-show['GPM511']
+
+    show['GPMn'] = show['GPMdiff'] < 0
+
     show['WR511'] = round(getWR(g['overallItemData'][str(itemID)]['7']), 3)
     show['WR514'] = round(getWR(f['overallItemData'][str(itemID)]['7']), 3)
     show['WRdiff'] = -show['WR511']+show['WR514']
@@ -162,18 +179,18 @@ def itemPage(request, itemID):
         return -1
     flistwr = []
     for champ in f['championItemOrderWR']:
-        flistwr.append((champ, getWR(f['championItemOrderWR'][champ][str(itemID)]['7'])))
+        flistwr.append((champ, getWR(g['championItemOrderWR'][champ][str(itemID)]['7'])))
     flistwr = sorted(flistwr, key = lambda champ: -float(champ[1]))
 
     glistwr = []
     for champ in g['championItemOrderWR']:
-        glistwr.append((champ, getWR(g['championItemOrderWR'][champ][str(itemID)]['7'])))
+        glistwr.append((champ, getWR(f['championItemOrderWR'][champ][str(itemID)]['7'])))
     glistwr = sorted(glistwr, key = lambda champ: -float(champ[1]))
 
     flistpr = []
     for champ in f['itemPickRateChampion']:
         try:
-            flistpr.append((champ, f['itemPickRateChampion'][champ][str(itemID)]))
+            flistpr.append((champ, g['itemPickRateChampion'][champ][str(itemID)]))
         except Exception:
             flistpr.append((champ, '0'))
     flistpr = sorted(flistpr, key = lambda champ: -float(champ[1]))
@@ -181,7 +198,7 @@ def itemPage(request, itemID):
     glistpr = []
     for champ in g['itemPickRateChampion']:
         try:
-            glistpr.append((champ, g['itemPickRateChampion'][champ][str(itemID)]))
+            glistpr.append((champ, f['itemPickRateChampion'][champ][str(itemID)]))
         except Exception:
             glistpr.append((champ, '0'))
     glistpr = sorted(glistpr, key = lambda champ: -float(champ[1]))
