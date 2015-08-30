@@ -102,6 +102,10 @@ def champPage(request, champID):
     print str(total) + " TIMING DATA"
     return render(request, 'pages/champPage.html', show)
 
+def about(request):
+    init()
+    return render(request, 'pages/about.html', {})
+
 import re
 def itemPage(request, itemID):
     init()
