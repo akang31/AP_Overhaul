@@ -7,23 +7,34 @@
     <link href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap theme -->
     <link href="/static/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <style type="text/css">
+        #mainText {
+            padding: 30px;
+            font-size: 25px;
+            margin-top: 40px;
+        }
+    </style>
 </head>
 <body>
     <div class="container-fluid" id="big">
         <div id='header'></div>
-        <div class="container glass_container" style="margin-top:40px;">
-            <div>This site was created for the purpose of measuring the impact that the recent APItem (hahaha get it hahahahah laugh with me pls HAHAHAHAHAHA) had on various factors, including item diversity, champions' win rates, and the impact that the item had on the game as a whole.</div>
-            <h4>Questions? Comments? </h4>
-            <div>Well sorry we don't accept those </div>
-            <div>This site was created using a mix of Polymer, Bootstrap, Django, and caffeine.</div>
+        <div id="mainText" class="container glass_container">
+            <div>This site was created for the purpose of measuring the impact that the recent AP Item overhaul (find out more <a target="_blank" href="http://na.leagueoflegends.com/en/news/game-updates/patch/patch-513-notes">here</a>) had on various factors, including item diversity, champions' win rates, and the impact that the items had on the game as a whole.</div>
+            <div>This site was created using Polymer, Bootstrap, and Django.</div>
         </div>
-        <div id="footer" style="width:100%; position:absolute; bottom:0; left:0;"></div>
+        <div style="width:100%; position:absolute; bottom:0; left:0; background-color:gray">
+            <div class="text-center" style="color:white; font-size:30px; margin-bottom:20px">
+                Site created by TamePurpleLlamas and Doowey
+            </div>
+            <div style="color:white" class="text-center">
+                [The title of your Project] isn’t endorsed by Riot Games and doesn’t reflect the views or opinions of Riot Games or anyone officially involved in producing or managing League of Legends. League of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. League of Legends © Riot Games, Inc.
+            </div>
+        </div>
     </div>
 
     <script src="/static/js/jquery.js"></script>
     <script>
         $('#header').load('/static/header.html');
-        $('#footer').load('/static/footer.html');
     </script>
 </body>
 </html>
