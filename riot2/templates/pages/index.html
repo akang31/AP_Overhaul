@@ -4,10 +4,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="/static/main.css">
     <link rel="stylesheet" type="text/css" href="/static/animations.css">
+    <script src="/static/js/sorttable.js"></script>
     <!-- Bootstrap core CSS -->
     <link href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap theme -->
-    <link href="/xstatic/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="/static/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
     <link rel="import" href="/static/bower_components/polymer/polymer.html">
     <link rel="import" href="/static/bower_components/paper-card/paper-card.html">
     <link rel="import" href="/static/bower_components/paper-button/paper-button.html">
@@ -15,7 +16,7 @@
     <link rel="import" href="/static/bower_components/iron-icons/iron-icons.html">
     <style type="text/css">
         td {
-            heigth: 60px;
+            height: 50px;
         }
     </style>
 </head>
@@ -25,7 +26,7 @@
         <div class="container-fluid" style="margin-top:30px">
             <paper-card id="mainCard" style="margin-top:0px;">
                 <div class="table-responsive card-content" style="margin-top:20px">
-                    <table class="table">
+                    <table class="table sortable">
                         <thead class="text-center">
                             <tr class="text-center">
                                 <th>Rank</th>
