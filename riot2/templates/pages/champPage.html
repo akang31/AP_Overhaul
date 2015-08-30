@@ -1,139 +1,170 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  {% load staticfiles %}
-  <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}" />
-  <link rel="stylesheet" type="text/css" href="{% static 'animations.css' %}" />
-  <!-- Bootstrap core CSS -->
-  <link href="{% static "bower_components/bootstrap/dist/css/bootstrap.min.css" %}" rel="stylesheet">
-  <!-- Bootstrap theme -->
-  <link href="{% static "bower_components/bootstrap/dist/css/bootstrap-theme.min.css" %}" rel="stylesheet">
-  <!-- Polymer elements -->
-  <link rel="import" href="{% static "bower_components/polymer/polymer.html" %}">
-  <link rel="import" href="{% static "bower_components/paper-card/paper-card.html" %}">
-  <link rel="import" href="{% static "bower_components/paper-button/paper-button.html" %}">
-  <link rel="import" href="{% static "bower_components/iron-icon/iron-icon.html" %}">
-  <link rel="import" href="{% static "bower_components/iron-icons/iron-icons.html" %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'animations.css' %}" />
+    <!-- Bootstrap core CSS -->
+    <link href="{% static "bower_components/bootstrap/dist/css/bootstrap.min.css" %}" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="{% static "bower_components/bootstrap/dist/css/bootstrap-theme.min.css" %}" rel="stylesheet">
+    <!-- Polymer elements -->
+    <link rel="import" href="{% static "bower_components/polymer/polymer.html" %}">
+    <link rel="import" href="{% static "bower_components/paper-card/paper-card.html" %}">
+    <link rel="import" href="{% static "bower_components/paper-button/paper-button.html" %}">
+    <link rel="import" href="{% static "bower_components/iron-icon/iron-icon.html" %}">
+    <link rel="import" href="{% static "bower_components/iron-icons/iron-icons.html" %}">
 
-  <link rel="import" href="{% static "champ-box.html" %}">
+    <link rel="import" href="{% static "champ-box.html" %}">
     <style type="text/css">
-    paper-card div div div {
-        height: 60px;
-    }
-    span {
-        font-size: 20px;
-        margin-left: 20px;
-    }
+        paper-card div div div {
+            height: 60px;
+        }
+        span {
+            font-size: 20px;
+            margin-left: 20px;
+        }
     </style>
 </head>
 <body>
     <div class="container-fluid" id="big">
         <div id='header'></div>
 
-        <!-- The below content would be replaced with specific item information via ajax calls
-        Everything below is just a replaceable content template -->
         <div class="conatiner-fluid" style="margin-top:20px;">
             <div class="row">
-              <div class="col-md-3">
-                  <paper-card id="nameBox" style="margin-top:0px; margin-bottom:30px;">
-                      <div class="card-content" style="height:150px">
-                          <img class="img-responsive pull-left"
-                              alt="Responsive image"
-                              style="width:100px; height:auto; margin:10px; margin-right:30px;"
-                              src={{champImage|safe}} />
-                          <div style="margin:10px; font-size:30px;">
-                              <strong>{{champName}}</strong>
-                          </div>
-                      </div>
-                  </paper-card>
-                  <paper-card id="someCard" heading="Some Card">
-                    <div class="card-content">
-                    </div>
-                  </paper-card>
-              </div>
+                <div class="col-md-3">
+                    <paper-card id="nameBox" style="margin-top:0px; margin-bottom:30px;">
+                        <div class="card-content" style="height:150px">
+                            <img class="img-responsive pull-left"
+                            alt="Responsive image"
+                            style="width:100px; height:auto; margin:10px; margin-right:30px;"
+                            src={{champImage|safe}} />
+                            <div style="margin:10px; font-size:30px;">
+                                <strong>{{champName}}</strong>
+                            </div>
+                        </div>
+                    </paper-card>
+                    <paper-card id="champWinCard" heading="Win rate">
+                        <div class="card-content">
+                            <table class="table">
+                                <tr>
+                                    <td class="text-right">{{pickRate511}} <iron-icon icon="arrow-forward"></iron-icon> {{pickRate514}}</td>
+                                    <td class="text-right delta_red"></iron-icon>{{pickRateDiff}}</td>
+                                    <td class="text-right delta_green"><iron-icon icon="add"></iron-icon>{{pickRateDiff}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </paper-card>
+                    <paper-card id="champPopCard" heading="Popularity">
+                        <div class="card-content">
+                            <table class="table">
+                                <tr>
+                                    <td class="text-right">{{pickRate511}} <iron-icon icon="arrow-forward"></iron-icon> {{pickRate514}}</td>
+                                    <td class="text-right delta_red"></iron-icon>{{pickRateDiff}}</td>
+                                    <td class="text-right delta_green"><iron-icon icon="add"></iron-icon>{{pickRateDiff}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </paper-card>
+                </div>
                 <div class="col-md-9">
-                    <!-- Next step - make the white background expand with the items as they appear
-                         Next next step - have 5.11 show up first at the center of the div, then after the
-                                          center arrow appears, have it shift to the left then 5.14 shows
-                                          on the right -->
                     <paper-card id="champRankItemCard" heading="Most popular items in order" style="margin-top:0px;">
                         <div class="card-content row">
                             <div class="col-md-5 text-center">
-                              <table class="table">
-                                <tr id="order0" style="bottom:20px;">
-                                  <td colspan="2">
-                                    <strong style="font-size:25px;">5.11</strong>
-                                  </td>
-                                  <td>
-                                    Win %
-                                  </td>
-                                  <td>
-                                    Popularity
-                                  </td>
-                                </tr>
-                                {% block content %}
-                                {% for item in item_list511 %}
-                                <tr class="text-left" id={{item.order|safe}}>
-                                  <td>
-                                    <img src = {{item.img|safe}} class="icon"/>
-                                  </td>
-                                  <td>
-                                    <span> {{item.name}} </span>
-                                  </td>
-                                  <td>
-                                    <span> {{item.wr}} </span>
-                                  </td>
-                                  <td>
-                                    <span> {{item.pr}} </span>
-                                  </td>
-                                </tr>
+                                <table class="table">
+                                    <tr id="order0" style="bottom:20px;">
+                                        <td colspan="2">
+                                            <strong style="font-size:25px;">5.11</strong>
+                                        </td>
+                                        <td>
+                                            Win %
+                                        </td>
+                                        <td>
+                                            Popularity
+                                        </td>
+                                    </tr>
+                                    {% block content %}
+                                    {% for item in item_list511 %}
+                                    <tr class="text-left" id={{item.order|safe}}>
+                                        <td>
+                                            <img src = {{item.img|safe}} class="icon"/>
+                                        </td>
+                                        <td>
+                                            <span> {{item.name}} </span>
+                                        </td>
+                                        <td>
+                                            <span> {{item.wr}} </span>
+                                        </td>
+                                        <td>
+                                            <span> {{item.pr}} </span>
+                                        </td>
+                                    </tr>
                                 {% endfor %}
-                              </table>
+                                </table>
                             </div>
                             <div class="col-md-2 text-center" id="centerIcon">
                                 <iron-icon icon="chevron-right" style="width:80px;height:auto;margin-top:285px;margin-bottom:230px;"></iron-icon>
                             </div>
                             <div class="col-md-5 text-center">
-                              <table class="table">
-                                <tr id="order0" style="bottom:20px;">
-                                  <td colspan="2">
-                                    <strong style="font-size:25px;">5.14</strong>
-                                  </td>
-                                  <td>
-                                    Win %
-                                  </td>
-                                  <td>
-                                    Popularity
-                                  </td>
-                                </tr>
-                                {% for item in item_list514 %}
-                                <tr class="text-left" id={{item.order|safe}}>
-                                  <td>
-                                    <img src = {{item.img|safe}} class="icon"/>
-                                  </td>
-                                  <td>
-                                    <span> {{item.name}} </span>
-                                  </td>
-                                  <td>
-                                    <span> {{item.wr}} </span>
-                                  </td>
-                                  <td>
-                                    <span> {{item.pr}} </span>
-                                  </td>
-                                </tr>
+                                <table class="table">
+                                    <tr id="order0" style="bottom:20px;">
+                                        <td colspan="2">
+                                            <strong style="font-size:25px;">5.14</strong>
+                                        </td>
+                                        <td>
+                                            Win %
+                                        </td>
+                                        <td>
+                                            Popularity
+                                        </td>
+                                    </tr>
+                                    {% for item in item_list514 %}
+                                    <tr class="text-left" id={{item.order|safe}}>
+                                        <td>
+                                            <img src = {{item.img|safe}} class="icon"/>
+                                        </td>
+                                        <td>
+                                            <span> {{item.name}} </span>
+                                        </td>
+                                        <td>
+                                            <span> {{item.wr}} </span>
+                                        </td>
+                                        <td>
+                                            <span> {{item.pr}} </span>
+                                        </td>
+                                    </tr>
                                 {% endfor %}
-                              </table>
+                                </table>
                             </div>
                         </div>
                     </paper-card>
+                </div>
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-5">
+                    <paper-card heading="Most Popular Build Order" id="buildCard">
+                        <div class="card-content text-center">
+                            <img src="/static/img/abyssal-scepter.gif" class="icon" />
+                            <iron-icon icon="chevron-right" style="width:50px;height:auto;"></iron-icon>
+                            <img src="/static/img/abyssal-scepter.gif" class="icon" />
+                            <iron-icon icon="chevron-right" style="width:50px;height:auto;"></iron-icon>
+                            <img src="/static/img/abyssal-scepter.gif" class="icon" />
+                            <iron-icon icon="chevron-right" style="width:50px;height:auto;"></iron-icon>
+                            <img src="/static/img/abyssal-scepter.gif" class="icon" />
+                            <iron-icon icon="chevron-right" style="width:50px;height:auto;"></iron-icon>
+                            <img src="/static/img/abyssal-scepter.gif" class="icon" />
+                            <iron-icon icon="chevron-right" style="width:50px;height:auto;"></iron-icon>
+                            <img src="/static/img/abyssal-scepter.gif" class="icon" />
+                        </div>
+                    </paper-card>   
                 </div>
             </div>
         </div>
 
         <div id='footer'></div>
     </div>
-{% endblock %}
+    {% endblock %}
     <script src="/static/js/jquery.js"></script>
     <script>
         $('#header').load('/static/header.html');
