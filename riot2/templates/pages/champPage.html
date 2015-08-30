@@ -36,19 +36,23 @@
         <div class="conatiner-fluid" style="margin-top:20px;">
             <div class="row">
               <div class="col-md-3">
-                    <paper-card id="nameBox" style="margin-top:0px; margin-bottom:30px;">
-                        <div class="card-content" style="height:150px">
-                            <img class="img-responsive pull-left"
-                                alt="Responsive image"
-                                style="width:100px; height:auto; margin:10px; margin-right:30px;"
-                                src={{champImage|safe}} />
-                            <div style="margin:10px; font-size:30px;">
-                                <strong>{{champName}}</strong>
-                            </div>
-                        </div>
-                    </paper-card>
-                </div>
-                <div class="col-md-6">
+                  <paper-card id="nameBox" style="margin-top:0px; margin-bottom:30px;">
+                      <div class="card-content" style="height:150px">
+                          <img class="img-responsive pull-left"
+                              alt="Responsive image"
+                              style="width:100px; height:auto; margin:10px; margin-right:30px;"
+                              src={{champImage|safe}} />
+                          <div style="margin:10px; font-size:30px;">
+                              <strong>{{champName}}</strong>
+                          </div>
+                      </div>
+                  </paper-card>
+                  <paper-card id="someCard" heading="Some Card">
+                    <div class="card-content">
+                    </div>
+                  </paper-card>
+              </div>
+                <div class="col-md-9">
                     <!-- Next step - make the white background expand with the items as they appear
                          Next next step - have 5.11 show up first at the center of the div, then after the
                                           center arrow appears, have it shift to the left then 5.14 shows
@@ -56,39 +60,71 @@
                     <paper-card id="champRankItemCard" heading="Most popular items in order" style="margin-top:0px;">
                         <div class="card-content row">
                             <div class="col-md-5 text-center">
-                                <div id="order0">
+                              <table class="table">
+                                <tr id="order0" style="bottom:20px;">
+                                  <td colspan="2">
                                     <strong style="font-size:25px;">5.11</strong>
-                                </div>
+                                  </td>
+                                  <td>
+                                    Win %
+                                  </td>
+                                  <td>
+                                    Popularity
+                                  </td>
+                                </tr>
                                 {% block content %}
                                 {% for item in item_list511 %}
-                                <div class="text-left" id={{item.order|safe}}>
-                                  <img src = {{item.img|safe}} class="icon"/>
-                                  <span> {{item.name}} </span>
-                                </div>
+                                <tr class="text-left" id={{item.order|safe}}>
+                                  <td>
+                                    <img src = {{item.img|safe}} class="icon"/>
+                                  </td>
+                                  <td>
+                                    <span> {{item.name}} </span>
+                                  </td>
+                                  <td>
+                                    <span> 58% </span>
+                                  </td>
+                                  <td>
+                                    <span> 80% </span>
+                                  </td>
+                                </tr>
                                 {% endfor %}
-
+                              </table>
                             </div>
                             <div class="col-md-2 text-center" id="centerIcon">
-                                <iron-icon icon="chevron-right" style="width:80px;height:auto;margin-top:260px;"></iron-icon>
+                                <iron-icon icon="chevron-right" style="width:80px;height:auto;margin-top:285px;margin-bottom:230px;"></iron-icon>
                             </div>
                             <div class="col-md-5 text-center">
-                                <div id="order0">
+                              <table class="table">
+                                <tr id="order0" style="bottom:20px;">
+                                  <td colspan="2">
                                     <strong style="font-size:25px;">5.14</strong>
-                                </div>
+                                  </td>
+                                  <td>
+                                    Win %
+                                  </td>
+                                  <td>
+                                    Popularity
+                                  </td>
+                                </tr>
                                 {% for item in item_list514 %}
-                                <div class="text-left" id={{item.order|safe}}>
-                                  <img src = {{item.img|safe}} class="icon"/>
-                                  <span> {{item.name}} </span>
-                                </div>
+                                <tr class="text-left" id={{item.order|safe}}>
+                                  <td>
+                                    <img src = {{item.img|safe}} class="icon"/>
+                                  </td>
+                                  <td>
+                                    <span> {{item.name}} </span>
+                                  </td>
+                                  <td>
+                                    <span> 20% </span>
+                                  </td>
+                                  <td>
+                                    <span> 10% </span>
+                                  </td>
+                                </tr>
                                 {% endfor %}
+                              </table>
                             </div>
-                        </div>
-                    </paper-card>
-                </div>
-                <div class="col-md-3">
-                    <paper-card id="someCard" heading="Some card" style="margin-top:0px;">
-                        <div class="card-content">
-                            Something goes here
                         </div>
                     </paper-card>
                 </div>

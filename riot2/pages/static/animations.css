@@ -153,6 +153,12 @@
     -webkit-animation-duration: 1.3s;
     animation-duration: 1.3s;
 }
+#mainCard {
+    -webkit-animation-name: slideInUp;
+    animation-name: slideInUp;
+    -webkit-animation-duration: 1.3s;
+    animation-duration: 1.3s;
+}
 #order0 {
     -webkit-animation-name: slideInDown;
     animation-name: slideInDown;
