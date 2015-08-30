@@ -39,43 +39,22 @@
                             </tr>
                         </thead>
                         <tbody>
+                        {% block content %}
+                            {% for item in item_list %}
                             <tr>
-                                <td>1</td>
+                                <td>{{item.rank}}</td>
                                 <td>
-                                    <img src="/static/img/abyssal-scepter.gif" style="width:30px; height:auto" />
-                                    <a href="/pages/itemPage/3001">Abyssal Scepter</a>
+                                    <img src="/static/img/511/{{item.id}}.png" style="width:30px; height:auto" />
+                                    <a href="/pages/itemPage/{{item.id}}">{{item.name}}</a>
                                 </td>
-                                <td>20%</td>
-                                <td>50%</td>
-                                <td>40%</td>
-                                <td>25%</td>
-                                <td>+ 2</td>
+                                <td>{{item.wr511}}</td>
+                                <td>{{item.wr514}}</td>
+                                <td>{{item.pr511}}</td>
+                                <td>{{item.pr514}}</td>
+                                <td>{{item.rankChange}}</td>
                             </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>
-                                    <img src="/static/img/abyssal-scepter.gif" style="width:30px; height:auto" />
-                                    <a href="/pages/itemPage/3001">Mejai's Soulstealer</a>
-                                </td>
-                                <td>20%</td>
-                                <td>50%</td>
-                                <td>40%</td>
-                                <td>12%</td>
-                                <td>- 1</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>
-                                    <img src="/static/img/abyssal-scepter.gif" style="width:30px; height:auto" />
-                                    <a href="/pages/itemPage/3001">Rabadon's Deathcap</a>
-                                </td>
-                                <td>50%</td>
-                                <td>20%</td>
-                                <td>25%</td>
-                                <td>10%</td>
-                                <td>- 1</td>
-                            </tr>
-                        </tbody>
+                            {% endfor %}
+                        {% endblock %}
                     </table>
                 </div>
             </paper-card>
