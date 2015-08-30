@@ -101,7 +101,14 @@ def champPage(request, champID):
         itemList_514.append(add)
     show['item_list514'] = itemList_514
     t1 = time.time()
-
+    show['pr511'] = g['championPickRate'][str(champID)]
+    show['pr514'] = f['championPickRate'][str(champID)]
+    show['PRdiff'] = show['pr514']-show['pr511']
+    show['prn'] = show['PRdiff'] < 0
+    show['wr511'] = round(getWR(g['overallChampionData'][str(champID)]), 3)
+    show['wr514'] = round(getWR(f['overallChampionData'][str(champID)]), 3)
+    show['WRdiff'] = show['wr514']-show['wr511']
+    show['wrn'] = show['WRdiff'] < 0
     total = t1-t0
     print str(total) + " TIMING DATA"
     return render(request, 'pages/champPage.html', show)

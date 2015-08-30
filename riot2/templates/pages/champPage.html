@@ -49,9 +49,12 @@
                         <div class="card-content">
                             <table class="table">
                                 <tr>
-                                    <td class="text-right">{{pickRate511}} <iron-icon icon="arrow-forward"></iron-icon> {{pickRate514}}</td>
-                                    <td class="text-right delta_red"></iron-icon>{{pickRateDiff}}</td>
-                                    <td class="text-right delta_green"><iron-icon icon="add"></iron-icon>{{pickRateDiff}}</td>
+                                  <td class="text-right">{{wr511}} <iron-icon icon="arrow-forward"></iron-icon> {{wr514}}</td>
+                                  {% if wrn %}
+                                    <td class="text-right delta_red"></iron-icon>{{WRdiff}}</td>
+                                  {% else %}
+                                    <td class="text-right delta_green"><iron-icon icon="add"></iron-icon>{{WRdiff}}</td>
+                                  {% endif %}
                                 </tr>
                             </table>
                         </div>
@@ -60,9 +63,12 @@
                         <div class="card-content">
                             <table class="table">
                                 <tr>
-                                    <td class="text-right">{{pickRate511}} <iron-icon icon="arrow-forward"></iron-icon> {{pickRate514}}</td>
-                                    <td class="text-right delta_red"></iron-icon>{{pickRateDiff}}</td>
-                                    <td class="text-right delta_green"><iron-icon icon="add"></iron-icon>{{pickRateDiff}}</td>
+                                  <td class="text-right">{{pr511}} <iron-icon icon="arrow-forward"></iron-icon> {{pr514}}</td>
+                                  {% if prn %}
+                                    <td class="text-right delta_red"></iron-icon>{{PRdiff}}</td>
+                                  {% else %}
+                                    <td class="text-right delta_green"><iron-icon icon="add"></iron-icon>{{PRdiff}}</td>
+                                  {% endif %}
                                 </tr>
                             </table>
                         </div>
@@ -157,7 +163,7 @@
                             <iron-icon icon="chevron-right" style="width:50px;height:auto;"></iron-icon>
                             <img src="/static/img/abyssal-scepter.gif" class="icon" />
                         </div>
-                    </paper-card>   
+                    </paper-card>
                 </div>
             </div>
         </div>
