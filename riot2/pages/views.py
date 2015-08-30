@@ -228,38 +228,30 @@ def itemPage(request, itemID):
 def getWR(data):
     return float(data['W'])/(data['W']+data['L']) if data['W']+data['L'] > 30 else 0
 def index(request):
-    # try:
-    #     root = JSON.objects.get(value="root")
-    # except Exception:
-    #     init()
-    #     root = JSON.objects.get(value="root")
     init()
     show = {}
-
-    # diana analysis
-    # diana wr
-    print f['overallChampionData']['131']
-    show['wr'] = f['overallChampionData']['131']
-    # diana pickrate
-    print f['championPickRate']['131']
-    show['pr'] = f['overallChampionData']['131']
-    # diana picking abyssal wrs
-    print f['championItemOrderWR']['131']['3001']
-    # diana by highest wr item
-    items = sorted(f['championItemOrderWR']['131'], key=lambda key:
-            -float(f['championItemOrderWR']['131'][key]['7']['W'])/
-            (f['championItemOrderWR']['131'][key]['7']['L']+
-            f['championItemOrderWR']['131'][key]['7']['W'])
-            if (f['championItemOrderWR']['131'][key]['7']['L']+
-            f['championItemOrderWR']['131'][key]['7']['W']) > 50 else 0 )
-    print items
-    print len(items)
-    show['item_list'] = []
-    for i in range(5):
-        print items[i]
-        show['item_list'].append(items[i])
-        print f['championItemOrderWR']['131'][items[i]]['7']['W']
-        print f['championItemOrderWR']['131'][items[i]]['7']['L']
+    itemlist = []
+    for item in f['overallItemData']:
+        itemlist.append((item, getWR(f['overallItemData'][item]['7'])))
+    itemlist = sorted(itemlist, key = lambda a: -a[1] if str(a[0]) in g['overallItemData'] else 0)
+    item_list = []
+    for i in range(15):
+        add = {}
+        add['rank'] = str(i+1)
+        add['name'] = itemData511['data'][str(itemlist[i][0])]['name']
+        add['id'] = str(itemlist[i][0])
+        add['wr511'] = getWR(g['overallItemData'][str(itemlist[i][0])]['7'])
+        try:
+            add['wr514'] = getWR(f['overallItemData'][str(itemlist[i][0])]['7'])
+        except Exception:
+            add['wr514'] = 'N/A'
+        add['pr511'] = g['itemPickRate'][str(itemlist[i][0])]
+        try:
+            add['pr514'] = f['itemPickRate'][str(itemlist[i][0])]
+        except Exception:
+            add['pr514'] = 'N/A'
+        item_list.append(add)
+    show['item_list'] = item_list
     return render(request, 'pages/index.html', show)
     """
 
