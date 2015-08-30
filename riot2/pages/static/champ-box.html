@@ -37,7 +37,7 @@ div div div {
                 <template is="dom-if" if="{{negative(champ.delta)}}">
                     <iron-icon icon="expand-more"></iron-icon>
                 </template>
-                <span>{{champ.delta}}</span>
+                <span>{{absolute(champ.delta)}}</span>
             </div>
         </div>
     </div>
@@ -69,6 +69,9 @@ div div div {
             if(parseInt(elem) < 0)
                 return true;
             return false;
+        },
+        absolute: function(elem) {
+            return Math.abs(elem);
         },
         signClass: function(elem) {
             if(parseInt(elem) > 0)

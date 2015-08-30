@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <!-- Bootstrap core CSS -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid" id="big">
+        <div id='header'></div>
+        <div class="container glass_container" style="margin-top:40px;">
+            <div>This site was created for the purpose of measuring the impact that the recent APItem (hahaha get it hahahahah laugh with me pls HAHAHAHAHAHA) had on various factors, including item diversity, champions' win rates, and the impact that the item had on the game as a whole.</div>
+            <h4>Questions? Comments? </h4>
+            <div>Well sorry we don't accept those </div>
+            <div>This site was created using a mix of Polymer, Bootstrap, Django, and caffeine.</div>
+        </div>
+        <div id="footer" style="width:100%; position:absolute; bottom:0; left:0;"></div>
+    </div>
+
+    <script src="js/jquery.js"></script>
+    <script>
+        $('#header').load('header.html');
+        $('#footer').load('footer.html');
+    </script>
+</body>
+</html>
