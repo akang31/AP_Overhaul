@@ -1,9 +1,9 @@
 <!--
 **********************************************************************
 itemPage.html
-- Displays stats specific to the item 
+- Displays stats specific to the item
 - Shows basic item stats before and after the patch (what changed)
-- List of stats  shown include: 
+- List of stats  shown include:
     - Item impact, measured by GPM after the item was purchased
     - Average completion time (before/after)
     - Win rate (before/after)
@@ -74,15 +74,7 @@ itemPage.html
                                       <td> {{ itemRawStats511|safe}} </td>
                                     </tr>
                                     <tr>
-                                        <th></th>
-                                        <td> {{ itemPassiveStats511|safe }} </td>
-                                    </tr>
-                                    <tr>
-                                        <th></th>
-                                        <td> {{itemActiveStats511 |safe}}</td>
-                                    </tr>
-                                    <tr>
-                                        <th></th>
+                                        <th>Gold</th>
                                         <td> {{itemCost511}} </td>
                                     </tr>
                                 </table>
@@ -99,15 +91,7 @@ itemPage.html
                                         <td> {{itemRawStats514|safe}}</td>
                                     </tr>
                                     <tr>
-                                        <th></th>
-                                        <td>{{itemPassiveStats514|safe}}</td>
-                                    </tr>
-                                    <tr>
-                                        <th></th>
-                                        <td>{{itemActiveStats514|safe}}</td>
-                                    </tr>
-                                    <tr>
-                                        <th></th>
+                                        <th>Gold</th>
                                         <td> {{itemCost514}}</td>
                                     </tr>
                                 </table>
@@ -258,7 +242,7 @@ itemPage.html
             }]
         }"></script>
     <script type="text/javascript">
-        // Functions from Google Charts used to draw the graph 
+        // Functions from Google Charts used to draw the graph
         google.setOnLoadCallback(drawChart);
         function drawChart() {
             var data = google.visualization.arrayToDataTable([

@@ -131,13 +131,13 @@ def itemPage(request, itemID):
     show['itemName'] = itemData511['data'][str(itemID)]['name']
     show['icon'] = '/static/img/511/'+str(itemID)+".png"
     print itemData511['data'][str(itemID)]['description']
-    show['itemRawStats511'] = re.findall('<stats>(.*?)<\\/stats>', itemData511['data'][str(itemID)]['description'], re.DOTALL)[0] if 'stats' in itemData511['data'][str(itemID)]['description'] else ''
-    show['itemPassiveStats511'] = re.findall('<unique>(.*?)<\\/unique>', itemData511['data'][str(itemID)]['description'], re.DOTALL) + re.findall('<\\\/unique\>(.*?)', itemData511['data'][str(itemID)]['description'], re.DOTALL) if 'unique' in itemData511['data'][str(itemID)]['description'] else ''
-    show['itemActiveStats511'] = "dinosaur"
+    show['itemRawStats511'] = itemData511['data'][str(itemID)]['description']#re.findall('<stats>(.*?)<\\/stats>', itemData511['data'][str(itemID)]['description'], re.DOTALL)[0] if 'stats' in itemData511['data'][str(itemID)]['description'] else ''
+    #show['itemPassiveStats511'] = re.findall('<unique>(.*?)<\\/unique>', itemData511['data'][str(itemID)]['description'], re.DOTALL) + re.findall('<\\\/unique\>(.*?)', itemData511['data'][str(itemID)]['description'], re.DOTALL) if 'unique' in itemData511['data'][str(itemID)]['description'] else ''
+    #show['itemActiveStats511'] = "dinosaur"
     show['itemCost511'] = itemData511['data'][str(itemID)]['gold']['total']
-    show['itemRawStats514'] = re.findall('<stats>(.*?)<\\/stats>', itemData514['data'][str(itemID)]['description'], re.DOTALL)[0] if 'stats' in itemData514['data'][str(itemID)]['description'] else ''
-    show['itemPassiveStats514'] = re.findall('<unique>(.*?)<\\/unique>', itemData514['data'][str(itemID)]['description'], re.DOTALL) + re.findall('<\\\/unique\>(.*?)', itemData514['data'][str(itemID)]['description'], re.DOTALL) if 'unique' in itemData514['data'][str(itemID)]['description'] else ''
-    show['itemActiveStats514'] = itemData514['data'][str(itemID)]['description']
+    show['itemRawStats514'] = itemData514['data'][str(itemID)]['description']#re.findall('<stats>(.*?)<\\/stats>', itemData514['data'][str(itemID)]['description'], re.DOTALL)[0] if 'stats' in itemData514['data'][str(itemID)]['description'] else ''
+    #show['itemPassiveStats514'] = re.findall('<unique>(.*?)<\\/unique>', itemData514['data'][str(itemID)]['description'], re.DOTALL) + re.findall('<\\\/unique\>(.*?)', itemData514['data'][str(itemID)]['description'], re.DOTALL) if 'unique' in itemData514['data'][str(itemID)]['description'] else ''
+    #show['itemActiveStats514'] = itemData514['data'][str(itemID)]['description']
     show['itemCost514'] = itemData514['data'][str(itemID)]['gold']['total']
 
     gtot1 = 0
