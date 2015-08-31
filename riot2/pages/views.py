@@ -31,19 +31,17 @@ def init():
         global itemData511
         global itemData514
         global champData
-        handler514 =  open('item514.txt')#urllib2.urlopen("https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?version=5.14.1&itemListData=gold&api_key=62763b3a-0683-48f1-9efc-1fcad131299c")
+        handler514 =  open('item514.txt')
         itemData514 = json.loads(handler514.read())
-        handler511 =  open('item511.txt')#urllib2.urlopen("https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?version=5.11.1&itemListData=gold&api_key=62763b3a-0683-48f1-9efc-1fcad131299c")
+        handler511 =  open('item511.txt')
         itemData511 = json.loads(handler511.read())
-        handler = open('champ.txt')#urllib2.urlopen("https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?dataById=true&api_key=62763b3a-0683-48f1-9efc-1fcad131299c")
+        handler = open('champ.txt')
         champData = json.loads(handler.read())
 
 def table(request):
     init()
     show = {}
     wrlist = []
-
-    ### VERY INEFFICIENT RIGHT NOW FIX SOON ###
     for champ in f['championItemOrderWR']:
         addlist = ['']
         for item in f['championItemOrderWR'][champ]:
@@ -60,11 +58,10 @@ def table(request):
         wrlist.append(addList)
     show['wrlist'] = wrlist
     return render(request, 'pages/table.html', show)
+
 import time
 def champPage(request, champID):
-
     init()
-    t0 = time.time()
     show = {}
     show['champName'] = champData['data'][str(champID)]['name']
     show['champImage'] = '"/static/img/champs/'+str(idToChamp[str(champID)])+'"'
@@ -100,7 +97,6 @@ def champPage(request, champID):
         add['pr'] = round(f['itemPickRateChampion'][str(champID)][str(items[i])], 3)
         itemList_514.append(add)
     show['item_list514'] = itemList_514
-    t1 = time.time()
     show['pr511'] = g['championPickRate'][str(champID)]
     show['pr514'] = f['championPickRate'][str(champID)]
     show['PRdiff'] = show['pr514']-show['pr511']
@@ -109,8 +105,6 @@ def champPage(request, champID):
     show['wr514'] = round(getWR(f['overallChampionData'][str(champID)]), 3)
     show['WRdiff'] = show['wr514']-show['wr511']
     show['wrn'] = show['WRdiff'] < 0
-    total = t1-t0
-    print str(total) + " TIMING DATA"
     return render(request, 'pages/champPage.html', show)
 
 def about(request):
@@ -184,6 +178,7 @@ def itemPage(request, itemID):
                 print array[i][1]
                 return i
         return -1
+
     flistwr = []
     for champ in f['championItemOrderWR']:
         flistwr.append((champ, getWR(g['championItemOrderWR'][champ][str(itemID)]['7'])))
@@ -234,6 +229,7 @@ def itemPage(request, itemID):
 
 def getWR(data):
     return float(data['W'])/(data['W']+data['L']) if data['W']+data['L'] > 30 else 0
+
 def index(request):
     init()
     show = {}
@@ -260,6 +256,3 @@ def index(request):
         item_list.append(add)
     show['item_list'] = item_list
     return render(request, 'pages/index.html', show)
-    """
-
-    """
