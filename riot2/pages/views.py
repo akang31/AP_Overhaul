@@ -78,44 +78,43 @@ def champPage(request, champID):
 
     itemList_511 = []
     items = sorted(g['championItemOrderWR'][str(champID)], key=lambda key:
-            -float(g['championItemOrderWR'][str(champID)][key]['7']['W'])/
-            (g['championItemOrderWR'][str(champID)][key]['7']['L']+
-            g['championItemOrderWR'][str(champID)][key]['7']['W'])
-            if (g['championItemOrderWR'][str(champID)][key]['7']['L']+
-            g['championItemOrderWR'][str(champID)][key]['7']['W']) > 30 else 0 )
+            -getWR(g['championItemOrderWR'][str(champID)][key]['7']))
     for i in range(1,10):
         add = {}
         add['order'] = '"order'+str(i)+'"'
         add['img'] = '"/static/img/511/'+str(items[i])+'.png"'
         add['name'] = itemData511['data'][str(items[i])]['name']
-        add['wr'] = round(getWR(g['championItemOrderWR'][str(champID)][str(items[i])]['7']), 3)
-        add['pr'] = round(g['itemPickRateChampion'][str(champID)][str(items[i])], 3)
+        add['wr'] = str(getWR(g['championItemOrderWR'][str(champID)][str(items[i])]['7']))+'%'
+        add['pr'] = str(round(g['itemPickRateChampion'][str(champID)][str(items[i])], 4)*100)+'%'
         itemList_511.append(add)
     show['item_list511'] = itemList_511
     itemList_514 = []
     items = sorted(f['championItemOrderWR'][str(champID)], key=lambda key:
-            -float(f['championItemOrderWR'][str(champID)][key]['7']['W'])/
-            (f['championItemOrderWR'][str(champID)][key]['7']['L']+
-            f['championItemOrderWR'][str(champID)][key]['7']['W'])
-            if (f['championItemOrderWR'][str(champID)][key]['7']['L']+
-            f['championItemOrderWR'][str(champID)][key]['7']['W']) > 50 else 0 )
+            -getWR(f['championItemOrderWR'][str(champID)][key]['7']))
     for i in range(1,10):
         add = {}
         add['order'] = '"order'+str(i)+'"'
         add['img'] = '"/static/img/514/'+str(items[i])+'.png"'
         add['name'] = itemData514['data'][str(items[i])]['name']
-        add['wr'] = round(getWR(f['championItemOrderWR'][str(champID)][str(items[i])]['7']),3)
-        add['pr'] = round(f['itemPickRateChampion'][str(champID)][str(items[i])], 3)
+        add['wr'] = str(getWR(f['championItemOrderWR'][str(champID)][str(items[i])]['7']))+'%'
+        add['pr'] = str(round(f['itemPickRateChampion'][str(champID)][str(items[i])], 4)*100)+'%'
         itemList_514.append(add)
     show['item_list514'] = itemList_514
-    show['pr511'] = g['championPickRate'][str(champID)]
-    show['pr514'] = f['championPickRate'][str(champID)]
+    show['pr511'] = round(g['championPickRate'][str(champID)],4)*100
+    show['pr514'] = round(f['championPickRate'][str(champID)],4)*100
     show['PRdiff'] = show['pr514']-show['pr511']
     show['prn'] = show['PRdiff'] < 0
+    show['pr511'] = str(show['pr511'])+'%'
+    show['pr514'] = str(show['pr514'])+'%'
+    show['PRdiff'] = str(show['PRdiff'])+'%'
+
     show['wr511'] = round(getWR(g['overallChampionData'][str(champID)]), 3)
     show['wr514'] = round(getWR(f['overallChampionData'][str(champID)]), 3)
     show['WRdiff'] = show['wr514']-show['wr511']
     show['wrn'] = show['WRdiff'] < 0
+    show['wr511'] = str(show['wr511'])+'%'
+    show['wr514'] = str(show['wr514'])+'%'
+    show['WRdiff'] = str(show['WRdiff'])+'%'
     return render(request, 'pages/champPage.html', show)
 
 def about(request):
@@ -150,29 +149,37 @@ def itemPage(request, itemID):
             ttot1 += g['championItemOrderWR'][champ][str(itemID)][str(i)]['TE']
             gtot2 += f['championItemOrderWR'][champ][str(itemID)][str(i)]['GP']
             ttot2 += f['championItemOrderWR'][champ][str(itemID)][str(i)]['TE']
-    show['GPM511'] = round(float(gtot1*60000)/ttot1, 3) if ttot1 > 0 else 0
-    show['GPM514'] = round(float(gtot2*60000)/ttot2, 3) if ttot2 > 0 else 0
+    show['GPM511'] = round(float(gtot1*60000)/ttot1, 2) if ttot1 > 0 else 0
+    show['GPM514'] = round(float(gtot2*60000)/ttot2, 2) if ttot2 > 0 else 0
     show['GPMdiff'] = show['GPM514']-show['GPM511']
 
     show['GPMn'] = show['GPMdiff'] < 0
 
-    show['WR511'] = round(getWR(g['overallItemData'][str(itemID)]['7']), 3)
-    show['WR514'] = round(getWR(f['overallItemData'][str(itemID)]['7']), 3)
+    show['WR511'] = getWR(g['overallItemData'][str(itemID)]['7'])
+    show['WR514'] = getWR(f['overallItemData'][str(itemID)]['7'])
     show['WRdiff'] = -show['WR511']+show['WR514']
-
     show['WRn'] = show['WRdiff'] < 0
+    show['WRdiff'] = str(show['WRdiff'])+'%'
+    show['WR511'] = str(show['WR511'])+'%'
+    show['WR514'] = str(show['WR514'])+'%'
+
 
     show['iscore511'] = 1
     show['iscore514'] = 1
     show['iscorediff'] = 1
-    show['pickRate511'] = g['itemPickRate'][str(itemID)]
-    show['pickRate514'] = f['itemPickRate'][str(itemID)]
+    show['pickRate511'] = round(g['itemPickRate'][str(itemID)], 4)*100
+    show['pickRate514'] = round(f['itemPickRate'][str(itemID)], 4)*100
     show['pickRateDiff'] = show['pickRate514'] - show['pickRate511']
 
     show['PRn'] = show['pickRateDiff'] < 0
 
-    show['completion511'] = round(float(g['itemTime'][str(itemID)])/60000, 3)
-    show['completion514'] = round(float(f['itemTime'][str(itemID)])/60000, 3)
+    show['pickRate511'] = str(show['pickRate511'])+'%'
+    show['pickRate514'] = str(show['pickRate514'])+'%'
+    show['pickRateDiff'] = str(show['pickRateDiff'])+'%'
+
+
+    show['completion511'] = round(float(g['itemTime'][str(itemID)])/60000, 2)
+    show['completion514'] = round(float(f['itemTime'][str(itemID)])/60000, 2)
     show['completionDiff'] = show['completion514']-show['completion511']
 
     show['cn'] = show['completionDiff'] < 0
@@ -239,7 +246,7 @@ def itemPage(request, itemID):
 
 
 def getWR(data):
-    return float(data['W'])/(data['W']+data['L']) if data['W']+data['L'] > 30 else 0
+    return round(float(data['W'])/(data['W']+data['L']) if data['W']+data['L'] > 30 else 0, 4)*100
 
 def index(request):
     init()
