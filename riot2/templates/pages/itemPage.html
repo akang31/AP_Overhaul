@@ -1,3 +1,19 @@
+<!--
+**********************************************************************
+itemPage.html
+- Displays stats specific to the item 
+- Shows basic item stats before and after the patch (what changed)
+- List of stats  shown include: 
+    - Item impact, measured by GPM after the item was purchased
+    - Average completion time (before/after)
+    - Win rate (before/after)
+    - Item rank (before/after)
+    - Item pick rate (before/after)
+    - List of champions who benefitted the most from this change
+    - List of champions who purchased the most from this change
+**********************************************************************
+-->
+
 <!DOCTYPE html>
 <html lang='en'>
 
@@ -16,19 +32,22 @@
     <link rel="import" href="{% static "bower_components/paper-button/paper-button.html" %}">
     <link rel="import" href="{% static "bower_components/iron-icon/iron-icon.html" %}">
     <link rel="import" href="{% static "bower_components/iron-icons/iron-icons.html" %}">
-
+    <!-- Custom champ-box element -->
     <link rel="import" href="{% static "champ-box.html" %}">
 </head>
 <body>
       {% block content %}
     <div class="container-fluid" id="big">
+        <!-- Header -->
         <div id="header"></div>
 
+        <!-- Main Content -->
         <!-- The below content would be replaced with specific item information via ajax calls
         Everything below is just a replaceable content template -->
         <div class="conatiner-fluid" style="margin-top:20px;">
             <div class="row">
                 <div class="col-md-3">
+                    <!-- Name and icon of the item -->
                     <paper-card id="nameBox" style="margin-top:0px; margin-bottom:30px;">
                         <div class="card-content" style="height:150px">
                             <img class="img-responsive pull-left"
@@ -41,6 +60,7 @@
                     </paper-card>
                 </div>
                 <div class="col-md-9">
+                    <!-- Basic in-game item stats (5.11 & 5.14) -->
                     <paper-card id="itemStatsCard" heading="Basic Item Stats:" style="margin-top:0px;">
                         <div class="card-content row">
                             <div class="col-md-6">
@@ -100,11 +120,11 @@
 
         <div class="container-fluid row" style="margin-top:30px;">
             <div class="col-md-4">
+                <!-- Item impact card along with a visual graph -->
                 <paper-card id="itemImpactCard" heading="Item Impact">
                     <div class="card-content">
                         <table class="table">
                             <tr>
-                                <!-- on mouse-hover, explains what GPM is and how we calculated it-->
                                 <th>GPM</th>
                                 <td class="text-right">{{GPM511}} <iron-icon icon="arrow-forward"></iron-icon> {{GPM514}}</td>
                                 {% if GPMn %}
@@ -120,7 +140,6 @@
                             </tr>
                             <tr>
                                 <th>Win rate</th>
-                                <!-- add green color for positive deltas and red color for negative deltas -->
                                 <td class="text-right">{{WR511}}<iron-icon icon="arrow-forward"></iron-icon> {{WR514}}</td>
                                 {% if WRn %}
                                   <td class="text-right delta_red"></iron-icon>{{WRdiff}}</td>
@@ -135,6 +154,7 @@
                         </table>
                     </div>
                 </paper-card>
+                <!-- Item popularity card -->
                 <paper-card id="pickRateCard" heading="Item Pick Rate">
                     <div class="card-content">
                         <table class="table">
@@ -151,6 +171,7 @@
                 </paper-card>
             </div>
             <div class="col-md-4">
+                <!-- Average completion time card -->
                 <paper-card id="avgCompletionCard" heading="Average completion time">
                     <div class="card-content">
                         <table class="table">
@@ -165,6 +186,7 @@
                         </table>
                     </div>
                 </paper-card>
+                <!-- Average item win rate card -->
                 <paper-card id="winRateCard" heading="Win rate">
                     <div class="card-content">
                         <table class="table">
@@ -179,6 +201,7 @@
                         </table>
                     </div>
                 </paper-card>
+                <!-- Item rank card -->
                 <paper-card id="itemRankCard" heading="Item Rank">
                     <div class="card-content">
                         <table class="table">
@@ -195,16 +218,15 @@
                 </paper-card>
             </div>
             <div class="col-md-4">
+                <!-- List of champions who benefitted the most from the change -->
                 <paper-card id="championBenefitCard" heading="Champions that benefitted the most">
                     <div class="card-content">
-                        <!-- Is there some repeat structure for this -->
-                        <!-- Acts weird when the page is resized -->
                         {% for champ in ranked_511 %}
                           <champ-box rank={{champ.rank}} champ={{champ.box|safe}}></champ-box>
                         {% endfor %}
                     </div>
                 </paper-card>
-
+                <!-- List of champions who bought the item the most after the change -->
                 <paper-card id="championFrequentCard" heading="Champions that bought this item the most">
                     <div class="card-content">
                         <!-- Is there some repeat structure for this -->
@@ -217,6 +239,7 @@
             </div>
         </div>
 
+        <!-- Footer -->
         <div id='footer'></div>
     </div>
 
@@ -235,8 +258,8 @@
             }]
         }"></script>
     <script type="text/javascript">
+        // Functions from Google Charts used to draw the graph 
         google.setOnLoadCallback(drawChart);
-
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
                 ['Minute',  'other items',  'this item'],

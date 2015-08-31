@@ -1,3 +1,18 @@
+<!--
+********************************************************
+champPage.html
+- Template page for each champion
+- Uses Django to fill in the templates
+- Under /pages/champPage/{{champID}}
+- Displays stats on cards
+- Stats include:
+    Most popular build order
+    Most popular items before and after the patch
+    Champion win rate
+    Champion popularity
+********************************************************
+-->
+
 <!DOCTYPE html>
 <html lang='en'>
 <head>
@@ -15,16 +30,18 @@
     <link rel="import" href="{% static "bower_components/paper-button/paper-button.html" %}">
     <link rel="import" href="{% static "bower_components/iron-icon/iron-icon.html" %}">
     <link rel="import" href="{% static "bower_components/iron-icons/iron-icons.html" %}">
-
+    <!-- Custom champ-box element -->
     <link rel="import" href="{% static "champ-box.html" %}">
     <style type="text/css">
         paper-card div div div {
             height: 60px;
         }
+        /* Item text */
         span {
             font-size: 20px;
             margin-left: 20px;
         }
+        /* Items under the most popular build order card */
         .buildIcon {
             margin: 10px;
         }
@@ -39,6 +56,7 @@
         <div class="conatiner-fluid" style="margin-top:20px;">
             <div class="row">
                 <div class="col-md-3">
+                    <!-- Name of the champion and appropriate icon -->
                     <paper-card id="nameBox" style="margin-top:0px; margin-bottom:30px;">
                         <div class="card-content" style="height:150px">
                             <img class="img-responsive pull-left"
@@ -50,6 +68,7 @@
                             </div>
                         </div>
                     </paper-card>
+                    <!-- Most popular build order card -->
                     <paper-card heading="Most Popular Build Order" id="buildCard" style="margin-bottom:30px;">
                         <div class="card-content text-center">
                             {% for itemlist in item_list %}
@@ -68,9 +87,11 @@
                     </paper-card>
                 </div>
                 <div class="col-md-9">
+                    <!-- Most popular items in order card -->
                     <paper-card id="champRankItemCard" heading="Most popular items in order" style="margin-top:0px;">
                         <div class="card-content row">
                             <div class="col-md-5 text-center">
+                                <!-- Table of 5.11 items -->
                                 <table class="table">
                                     <tr id="order0" style="bottom:20px;">
                                         <td colspan="2">
@@ -102,10 +123,12 @@
                                 {% endfor %}
                                 </table>
                             </div>
+                            <!-- Icon in the middle separating the two patches -->
                             <div class="col-md-2 text-center" id="centerIcon">
                                 <iron-icon icon="chevron-right" style="width:80px;height:auto;margin-top:285px;margin-bottom:230px;"></iron-icon>
                             </div>
                             <div class="col-md-5 text-center">
+                                <!-- Table of 5.14 items -->
                                 <table class="table">
                                     <tr id="order0" style="bottom:20px;">
                                         <td colspan="2">
@@ -140,6 +163,7 @@
                     </paper-card>
                 </div>
                 <div class="col-md-3">
+                    <!-- Champ win rate card -->
                     <paper-card id="champWinCard" heading="Win rate">
                         <div class="card-content">
                             <table class="table">
@@ -156,6 +180,7 @@
                     </paper-card>
                 </div>
                 <div class="col-md-3">
+                    <!-- Champ popularity card -->
                     <paper-card id="champPopCard" heading="Popularity">
                         <div class="card-content">
                             <table class="table">
@@ -174,6 +199,7 @@
             </div>
         </div>
 
+        <!-- Footer -->
         <div id='footer'></div>
     </div>
     {% endblock %}

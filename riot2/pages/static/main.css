@@ -3,17 +3,20 @@ main.css
 - Main css page for DOMs being used in multiple pages
 ******************************************************/
 
+/* CSS for everything */
 html, body {
     height: 100%;
     overflow: hidden;
     font-size: 15px;
 }
 
+/* Footer positioned at the bottom of the page */
 #footer {
     margin-top: 40px;
     margin-bottom: 10px;
 }
 
+/* Main div that everything is contained in */
 #big {
     background-image: url("/static/img/background.jpg");
     height: 100%;
@@ -25,21 +28,24 @@ html, body {
     overflow-y: scroll;
 }
 
-.glass_container {
-    background-color: rgba(255, 255, 255, .8);
-    border-radius: 10px;
-    padding: 20px;
-}
-
+/* Navigational buttons on the header */
 .nav_buttons {
-    /*background-color: #191970; */
     color: white;
 }
 
+/* Glass container used for about.html */
+.glass_container {
+    background-color: rgba(255, 255, 255, .8);
+    border-radius: 10px;
+    width: 100%;
+}
+
+/* Standard font size for most item names */
 .itemName {
     font-size: 20px;
 }
 
+/* Makes sure that borderless tables have no borders */
 .borderless td, .borderless th {
     border: none !important;
 }
@@ -48,7 +54,7 @@ table {
     width: 100%;
 }
 
-
+/* Stying for the cards */
 paper-card {
     width: 100%;
     margin-top: 30px;
