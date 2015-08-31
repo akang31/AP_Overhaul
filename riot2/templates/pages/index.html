@@ -1,23 +1,38 @@
+<!--
+***************************************************************************************
+index.html
+- Home page of the website
+- Provides an overview of all the AP items along with some of their stats, including: 
+    - old/new win rates
+    - old/new popularity
+    - overall rank
+- Tables are sortable using sorttable.js
+***************************************************************************************
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Necessary CSS -->
     <link rel="stylesheet" type="text/css" href="/static/main.css">
     <link rel="stylesheet" type="text/css" href="/static/animations.css">
+    <!-- Sorttable (http://www.kryogenix.org/code/browser/sorttable/) -->
     <script src="/static/js/sorttable.js"></script>
     <!-- Bootstrap core CSS -->
     <link href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap theme -->
     <link href="/static/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <!-- Polymer elements -->
     <link rel="import" href="/static/bower_components/polymer/polymer.html">
     <link rel="import" href="/static/bower_components/paper-card/paper-card.html">
     <link rel="import" href="/static/bower_components/paper-button/paper-button.html">
     <link rel="import" href="/static/bower_components/iron-icon/iron-icon.html">
     <link rel="import" href="/static/bower_components/iron-icons/iron-icons.html">
     <style type="text/css">
-        td {
-            height: 50px;
-        }
+    td {
+        height: 50px;
+    }
     </style>
 </head>
 <body>

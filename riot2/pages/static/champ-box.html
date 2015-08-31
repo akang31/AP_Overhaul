@@ -1,3 +1,14 @@
+<!--
+****************************************************************************
+champ-box.html
+- custom Polymer element used to display: 
+    - the champ icon
+    - champ name
+    - rank change
+- displays which champions benefitted most from the particular item change
+****************************************************************************
+-->
+
 <link rel="import" href="bower_components/polymer/polymer.html">
 <link rel="import" href="bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="bower_components/iron-icons/iron-icons.html">
@@ -17,12 +28,12 @@ div div div {
     width: 100%;
     margin: 0;
 }
-
 </style>
-
+<!-- Repeatable template used to display information -->
 <template>
     <div class="mainbox">
         <div class="row">
+            <!-- Uses various grid layouts for a responsive design -->
             <div class="col-md-1 col-sm-1 col-xs-1">
                 <span>{{rank}}</span>
             </div>
@@ -30,10 +41,13 @@ div div div {
                 <img src="{{champ.icon}}" style="width:30px; height:auto;" class="text-right"/>
                 <span style="margin-left:10px;">{{champ.name}}</span>
             </div>
+            <!-- The sign of the number determines its color and icon -->
             <div class="{{signClass(champ.delta)}}">
+                <!-- The ^ icon gets displayed if the change is positive -->
                 <template is="dom-if" if="{{positive(champ.delta)}}">
                     <iron-icon icon="expand-less"></iron-icon>
                 </template>
+                <!-- The v icon gets displayed if the change is negative -->
                 <template is="dom-if" if="{{negative(champ.delta)}}">
                     <iron-icon icon="expand-more"></iron-icon>
                 </template>
@@ -46,6 +60,8 @@ div div div {
 <script>
     Polymer({
         is: 'champ-box',
+        // Variables of the Polymer custom element which can be assigned
+        // from other html files
         properties: {
             rank: {
                 type: Number,
@@ -60,19 +76,25 @@ div div div {
                 }
             },
         },
+        // Returns true if elem is positive; false otherwise
         positive: function(elem) {
             if(parseInt(elem) > 0)
                 return true;
             return false;
         },
+        // Returns true if elem is negative; false otherwise
         negative: function(elem) {
             if(parseInt(elem) < 0)
                 return true;
             return false;
         },
+        // Returns the absolute value of elem
         absolute: function(elem) {
             return Math.abs(elem);
         },
+        // Applies a green color if the change is positive, 
+        // red color if negative. The default black is used
+        // if there is no change. 
         signClass: function(elem) {
             if(parseInt(elem) > 0)
                 return "col-md-3 col-sm-3 col-xs-3 text-center delta_green";

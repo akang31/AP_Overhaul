@@ -1,3 +1,8 @@
+/*****************************************************
+main.css
+- Main css page for DOMs being used in multiple pages
+******************************************************/
+
 html, body {
     height: 100%;
     overflow: hidden;
@@ -19,16 +24,6 @@ html, body {
     bottom: 0;
     overflow-y: scroll;
 }
-
-@media screen and (max-width: 640px){
-    body {
-        /* option 1: remove background altogether */
-        background: #fff;
-
-        /* option 2: serve a much smaller background */
-        /*background: #ABCDEF url(muchSmallerBackground.jpg);*/
-    }
-} 
 
 .glass_container {
     background-color: rgba(255, 255, 255, .8);
@@ -53,6 +48,7 @@ table {
     width: 100%;
 }
 
+/* 
 paper-card {
     width: 100%;
     margin-top: 30px;
@@ -60,24 +56,30 @@ paper-card {
     border-radius: 10px;
 }
 
+/* Standard font size for cards */
 .card-content {
     font-size: 20px;
 }
 
+/* Provides some space below tables so cards are easier 
+    to read */
 .card-content table {
     margin-bottom: 10px;
 }
 
+/* Applied to iron-icons (ex: up and down arrows) */
 iron-icon.iron-icon-0 {
     width: 18px;
     height: 18px;
 }
 
+/* Applied to most icons of champions and items */
 .icon {
     width:50px; 
     height:auto;
 }
 
+/* Classes to be applied to rank changes */
 .delta_green {
     color: green;
 }
@@ -86,6 +88,8 @@ iron-icon.iron-icon-0 {
     color: red;
 }
 
+/* Displays up-down arrows next to each table header
+   Shows the user that the table is sortable */
 table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after { 
     content: " \25B4\25BE" 
 }

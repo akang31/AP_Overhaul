@@ -1,9 +1,13 @@
-/*****************
+/****************************************************************************************
 animations.css
 - contains all css animations
+- differing animation-durations used to provide a unique effect
+- all cards use a sliding up (slideInUp) animation
+- content involving order (ex: build order) uses a sliding down (slideInDown) animation
+- animations modified from https://github.com/daneden/animate.css
+*****************************************************************************************/
 
-
-/* animations modified from https://github.com/daneden/animate.css */
+/* Animations to be used */
 @-webkit-keyframes slideInUp {
     from {
         -webkit-transform: translate3d(0, 2000px, 0);
@@ -46,7 +50,6 @@ animations.css
         opacity: 1;
     }
 }
-
 @keyframes slideInDown {
     from {
         -webkit-transform: translate3d(0, -100%, 0);
@@ -82,7 +85,6 @@ animations.css
         opacity: 1;
     }
 }
-
 @keyframes appear {
     from {
         -webkit-transform: translateZ(0);
@@ -101,12 +103,26 @@ animations.css
     }
 }
 
-/* itemPage.css */
-#itemImpactCard {
+/* animation for index.html */
+#mainCard {
+    -webkit-animation-name: slideInUp;
+    animation-name: slideInUp;
+    -webkit-animation-duration: 1.3s;
+    animation-duration: 1.3s;
+}
+
+/* animations for itemPage.html */
+#itemStatsCard {
     -webkit-animation-name: slideInUp;
     animation-name: slideInUp;
     -webkit-animation-duration: 1s;
     animation-duration: 1s;
+}
+#itemImpactCard {
+    -webkit-animation-name: slideInUp;
+    animation-name: slideInUp;
+    -webkit-animation-duration: 1.5s;
+    animation-duration: 1.5s;
 }
 #avgCompletionCard {
     -webkit-animation-name: slideInUp;
@@ -129,8 +145,8 @@ animations.css
 #championBenefitCard {
     -webkit-animation-name: slideInUp;
     animation-name: slideInUp;
-    -webkit-animation-duration: 1.1s;
-    animation-duration: 1.1s;
+    -webkit-animation-duration: 1.6s;
+    animation-duration: 1.6s;
 }
 #championFrequentCard {
     -webkit-animation-name: slideInUp;
@@ -145,7 +161,7 @@ animations.css
     animation-duration: 1.6s;
 }
 
-/* champPage.css */
+/* animations for champPage.html */
 #champRankItemCard {
     -webkit-animation-name: slideInUp;
     animation-name: slideInUp;
@@ -169,12 +185,6 @@ animations.css
     animation-name: slideInUp;
     -webkit-animation-duration: 1.9s;
     animation-duration: 1.9s;
-}
-#mainCard {
-    -webkit-animation-name: slideInUp;
-    animation-name: slideInUp;
-    -webkit-animation-duration: 1.3s;
-    animation-duration: 1.3s;
 }
 #order0 {
     -webkit-animation-name: slideInDown;
@@ -251,6 +261,6 @@ animations.css
 #centerIcon {
     -webkit-animation-name: appear;
     animation-name: appear;
-    -webkit-animation-duration: 5.6s;
-    animation-duration: 5.6s;
+    -webkit-animation-duration: 5.3s;
+    animation-duration: 5.3s;
 }
