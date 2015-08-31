@@ -254,23 +254,20 @@ def index(request):
     itemlist = []
     for item in f['overallItemData']:
         itemlist.append((item, getWR(f['overallItemData'][item]['7'])))
-    itemlist = sorted(itemlist, key = lambda a: -a[1] if str(a[0]) in g['overallItemData'] else 0)
+    itemlist = sorted(itemlist, key = lambda a: -a[1] if str(a[0]) in g['overallItemData'] else 1)
     item_list = []
-    for i in range(15):
+    for i in range(len(itemlist)):
         add = {}
         add['rank'] = str(i+1)
+        print i
+        if not str(itemlist[i][0]) in g['overallItemData']:
+            continue
         add['name'] = itemData511['data'][str(itemlist[i][0])]['name']
         add['id'] = str(itemlist[i][0])
-        add['wr511'] = getWR(g['overallItemData'][str(itemlist[i][0])]['7'])
-        try:
-            add['wr514'] = getWR(f['overallItemData'][str(itemlist[i][0])]['7'])
-        except Exception:
-            add['wr514'] = 'N/A'
-        add['pr511'] = g['itemPickRate'][str(itemlist[i][0])]
-        try:
-            add['pr514'] = f['itemPickRate'][str(itemlist[i][0])]
-        except Exception:
-            add['pr514'] = 'N/A'
+        add['wr511'] = str(getWR(g['overallItemData'][str(itemlist[i][0])]['7'])) + '%'
+        add['wr514'] = str(getWR(f['overallItemData'][str(itemlist[i][0])]['7'])) + '%'
+        add['pr511'] = str(round(g['itemPickRate'][str(itemlist[i][0])],4)*100) + '%'
+        add['pr514'] = str(round(f['itemPickRate'][str(itemlist[i][0])],4)*100) + '%'
         item_list.append(add)
     show['item_list'] = item_list
     return render(request, 'pages/index.html', show)
