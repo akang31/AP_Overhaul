@@ -65,6 +65,17 @@ def champPage(request, champID):
     show = {}
     show['champName'] = champData['data'][str(champID)]['name']
     show['champImage'] = '"/static/img/champs/'+str(idToChamp[str(champID)])+'"'
+
+    itemSlotRank514 = []
+    for i in range(6):
+        add1 = []
+        for j in itemData514['data']:
+            add1.append((str(j), f['championItemOrderWR'][str(champID)][str(j)][str(i)]['W']+f['championItemOrderWR'][str(champID)][str(j)][str(i)]['L']))# getWR(f['championItemOrderWR'][str(champID)][str(j)][str(i)])))
+        add1 = sorted(add1, key=lambda key: -key[1])
+        add = {'item1': add1[0][0], 'item2': add1[1][0], 'item3':add1[2][0], 'notlast': (not i == 5)}
+        itemSlotRank514.append(add)
+    show['item_list'] = itemSlotRank514
+
     itemList_511 = []
     items = sorted(g['championItemOrderWR'][str(champID)], key=lambda key:
             -float(g['championItemOrderWR'][str(champID)][key]['7']['W'])/

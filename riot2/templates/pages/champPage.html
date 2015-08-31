@@ -52,51 +52,18 @@
                     </paper-card>
                     <paper-card heading="Most Popular Build Order" id="buildCard" style="margin-bottom:30px;">
                         <div class="card-content text-center">
+                            {% for itemlist in item_list %}
                             <div>
-                                <img src="/static/img/abyssal-scepter.gif" class="icon buildIcon" />
-                                <img src="/static/img/abyssal-scepter.gif" class="icon buildIcon" />
-                                <img src="/static/img/abyssal-scepter.gif" class="icon buildIcon" />
+                                <img src="/static/img/511/{{itemlist.item1}}.png" class="icon buildIcon" />
+                                <img src="/static/img/511/{{itemlist.item2}}.png" class="icon buildIcon" />
+                                <img src="/static/img/511/{{itemlist.item3}}.png" class="icon buildIcon" />
                             </div>
-                            <div>
-                                <iron-icon icon="expand-more" style="width:50px;height:auto;"></iron-icon>
-                            </div>
-                            <div>
-                                <img src="/static/img/abyssal-scepter.gif" class="icon buildIcon" />
-                                <img src="/static/img/abyssal-scepter.gif" class="icon buildIcon" />
-                                <img src="/static/img/abyssal-scepter.gif" class="icon buildIcon" />
-                            </div>
+                            {% if itemlist.notlast %}
                             <div>
                                 <iron-icon icon="expand-more" style="width:50px;height:auto;"></iron-icon>
                             </div>
-                            <div>
-                                <img src="/static/img/abyssal-scepter.gif" class="icon buildIcon" />
-                                <img src="/static/img/abyssal-scepter.gif" class="icon buildIcon" />
-                                <img src="/static/img/abyssal-scepter.gif" class="icon buildIcon" />
-                            </div>
-                            <div>
-                                <iron-icon icon="expand-more" style="width:50px;height:auto;"></iron-icon>
-                            </div>
-                            <div>
-                                <img src="/static/img/abyssal-scepter.gif" class="icon buildIcon" />
-                                <img src="/static/img/abyssal-scepter.gif" class="icon buildIcon" />
-                                <img src="/static/img/abyssal-scepter.gif" class="icon buildIcon" />
-                            </div>
-                            <div>
-                                <iron-icon icon="expand-more" style="width:50px;height:auto;"></iron-icon>
-                            </div>
-                            <div>
-                                <img src="/static/img/abyssal-scepter.gif" class="icon buildIcon" />
-                                <img src="/static/img/abyssal-scepter.gif" class="icon buildIcon" />
-                                <img src="/static/img/abyssal-scepter.gif" class="icon buildIcon" />
-                            </div>
-                            <div>
-                                <iron-icon icon="expand-more" style="width:50px;height:auto;"></iron-icon>
-                            </div>
-                            <div>
-                                <img src="/static/img/abyssal-scepter.gif" class="icon buildIcon" />
-                                <img src="/static/img/abyssal-scepter.gif" class="icon buildIcon" />
-                                <img src="/static/img/abyssal-scepter.gif" class="icon buildIcon" />
-                            </div>
+                            {% endif %}
+                            {% endfor %}
                         </div>
                     </paper-card>
                 </div>
