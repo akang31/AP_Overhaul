@@ -41,7 +41,7 @@ def analyze(matchId):
 
     while True:
         try:
-            handler = urllib2.urlopen("https://na.api.pvp.net/api/lol/na/v2.2/match/"+str(matchId)+"?includeTimeline=true&api_key=62763b3a-0683-48f1-9efc-1fcad131299c")
+            handler = urllib2.urlopen("https://na.api.pvp.net/api/lol/na/v2.2/match/"+str(matchId)+"?includeTimeline=true&api_key="+api_key)
             break
         except:
             print "requests overloaded, waiting"
@@ -235,13 +235,13 @@ def initialize(dir):
     global itemData
     global champData
     if dir:
-        handler =  urllib2.urlopen("https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?version=5.14.1&itemListData=gold&api_key=62763b3a-0683-48f1-9efc-1fcad131299c")
+        handler =  urllib2.urlopen("https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?version=5.14.1&itemListData=gold&api_key="+api_key)
         itemData = json.loads(handler.read())
     else:
-        handler =  urllib2.urlopen("https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?version=5.11.1&itemListData=gold&api_key=62763b3a-0683-48f1-9efc-1fcad131299c")
+        handler =  urllib2.urlopen("https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?version=5.11.1&itemListData=gold&api_key="+api_key)
         itemData = json.loads(handler.read())
 
-    handler = urllib2.urlopen("https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?dataById=true&api_key=62763b3a-0683-48f1-9efc-1fcad131299c")
+    handler = urllib2.urlopen("https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?dataById=true&api_key="+api_key)
     champData = json.loads(handler.read())
 
     global champDict
@@ -285,5 +285,5 @@ def doAll():
 
     f4 = open('NA-5.14Analysis.json', 'w')
     f4.write(json.dumps(json514))
-
+api_key = str(raw_input('Insert your api key:'))
 doAll()
