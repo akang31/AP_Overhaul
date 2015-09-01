@@ -118,11 +118,6 @@ itemPage.html
                                 {% endif %}
                             </tr>
                             <tr>
-                                <td style="border-style:none;" colspan="3">
-                                    <div id="curve_chart" style="width:100%; height:100%"></div>
-                                </td>
-                            </tr>
-                            <tr>
                                 <th>Win rate</th>
                                 <td class="text-right">{{WR511}}<iron-icon icon="arrow-forward"></iron-icon> {{WR514}}</td>
                                 {% if WRn %}
@@ -131,10 +126,6 @@ itemPage.html
                                   <td class="text-right delta_green"><iron-icon icon="add"></iron-icon>{{WRdiff}}</td>
                                 {% endif %}
                             </tr>
-                            <tr>
-                                <th>Impact Score</th>
-                                <td class="text-right"> {{iscore511}} <iron-icon icon="arrow-forward"></iron-icon>{{iscore514}}</td>
-                                <td class="text-right delta_green"><iron-icon icon="add"></iron-icon>{{iscorediff}}</td>
                         </table>
                     </div>
                 </paper-card>
@@ -231,39 +222,6 @@ itemPage.html
     <script>
         $('#header').load('/static/header.html');
         $('#footer').load('/static/footer.html');
-    </script>
-    <!-- Using Google Charts -->
-    <script type="text/javascript"
-        src="https://www.google.com/jsapi?autoload={
-            'modules':[{
-                'name':'visualization',
-                'version':'1',
-                'packages':['corechart']
-            }]
-        }"></script>
-    <script type="text/javascript">
-        // Functions from Google Charts used to draw the graph
-        google.setOnLoadCallback(drawChart);
-        function drawChart() {
-            var data = google.visualization.arrayToDataTable([
-                ['Minute',  'other items',  'this item'],
-                ['0',       0,              0],
-                ['5',       5,              10],
-                ['10',      10,             15],
-                ['15',      20,             2],
-                ['20',      20,             3],
-                ['25',      20,             5],
-                ['30',      10,             8],
-                ['35',      15,             10]
-            ]);
-            var options = {
-                title: 'Avg gold earned since item purchase',
-                legend: { position: 'bottom' }
-            };
-            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-            chart.draw(data, options);
-        }
-
     </script>
     {% endblock %}
 </body>

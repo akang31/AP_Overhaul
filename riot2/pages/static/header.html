@@ -4,7 +4,10 @@ header.html
 - Header placed at the top of every page
 ******************************************
 -->
-
+<!-- Polymer elements -->
+<link rel="import" href="{% static "bower_components/polymer/polymer.html" %}">
+<link rel="import" href="{% static "bower_components/iron-icon/iron-icon.html" %}">
+<link rel="import" href="{% static "bower_components/iron-icons/iron-icons.html" %}">
 <div class="row" style="margin-top:10px">
     <div class="col-md-3">
         <!-- Logo linking back to the home page -->
@@ -14,7 +17,8 @@ header.html
     </div>
     <!-- Simple description of the website -->
     <div class="col-md-6 text-center" style="color:white; font-size:20px; margin-top:20px;">
-        Comparing game stats before and after the massive AP item changes (5.11 -> 5.14)
+        Comparing game stats before and after the massive AP item changes (5.11 
+        <iron-icon icon="arrow-forward" style="width:20px; height:auto;"></iron-icon> 5.14)
     </div>
     <div class="col-md-1"></div>
     <!-- Navigational buttons placed at the top right -->
