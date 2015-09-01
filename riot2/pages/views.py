@@ -5,6 +5,9 @@ from pages.models import JSON
 import urllib2
 import json
 def init():
+    """
+    Initialization for static data and calculated data. Stored globally by instance.
+    """
     working = 0
     try:
         global f
@@ -38,34 +41,18 @@ def init():
         handler = open('champ.txt')
         champData = json.loads(handler.read())
 
-def table(request):
-    init()
-    show = {}
-    wrlist = []
-    for champ in f['championItemOrderWR']:
-        addlist = ['']
-        for item in f['championItemOrderWR'][champ]:
-            addlist.append(itemData['data'][item]['name'])
-        wrlist.append(addlist)
-        break
-    for champ in f['championItemOrderWR']:
-        addList = [champData['data'][champ]['name']]
-        for item in f['championItemOrderWR'][champ]:
-            addList.append(round(float(f['championItemOrderWR'][champ][item]['7']['W'])/
-                (f['championItemOrderWR'][champ][item]['7']['W']+f['championItemOrderWR'][champ][item]['7']['L']), 3)
-                if f['championItemOrderWR'][champ][item]['7']['W'] > 0
-                else 0)
-        wrlist.append(addList)
-    show['wrlist'] = wrlist
-    return render(request, 'pages/table.html', show)
-
 import time
 def champPage(request, champID):
+    """
+    Generates champion page based in champID.
+    """
     init()
     show = {}
+
     show['champName'] = champData['data'][str(champID)]['name']
     show['champImage'] = '"/static/img/champs/'+str(idToChamp[str(champID)])+'"'
 
+    # Calculate most popular items in order of which they are built (ie. most popular items to buy first, second etc)
     itemSlotRank514 = []
     for i in range(6):
         add1 = []
@@ -76,6 +63,7 @@ def champPage(request, champID):
         itemSlotRank514.append(add)
     show['item_list'] = itemSlotRank514
 
+    # Highest win rate items from 511
     itemList_511 = []
     items = sorted(g['championItemOrderWR'][str(champID)], key=lambda key:
             -getWR(g['championItemOrderWR'][str(champID)][key]['7']))
@@ -88,6 +76,8 @@ def champPage(request, champID):
         add['pr'] = str(round(g['itemPickRateChampion'][str(champID)][str(items[i])], 4)*100)+'%'
         itemList_511.append(add)
     show['item_list511'] = itemList_511
+
+    # Highest win rate items from 514
     itemList_514 = []
     items = sorted(f['championItemOrderWR'][str(champID)], key=lambda key:
             -getWR(f['championItemOrderWR'][str(champID)][key]['7']))
@@ -100,6 +90,8 @@ def champPage(request, champID):
         add['pr'] = str(round(f['itemPickRateChampion'][str(champID)][str(items[i])], 4)*100)+'%'
         itemList_514.append(add)
     show['item_list514'] = itemList_514
+
+    # Pickrate Data
     show['pr511'] = round(g['championPickRate'][str(champID)],4)*100
     show['pr514'] = round(f['championPickRate'][str(champID)],4)*100
     show['PRdiff'] = show['pr514']-show['pr511']
@@ -108,6 +100,7 @@ def champPage(request, champID):
     show['pr514'] = str(show['pr514'])+'%'
     show['PRdiff'] = str(show['PRdiff'])+'%'
 
+    #Winrate Data
     show['wr511'] = round(getWR(g['overallChampionData'][str(champID)]), 3)
     show['wr514'] = round(getWR(f['overallChampionData'][str(champID)]), 3)
     show['WRdiff'] = show['wr514']-show['wr511']
@@ -118,18 +111,24 @@ def champPage(request, champID):
     return render(request, 'pages/champPage.html', show)
 
 def about(request):
+    """
+    About page. No further templating necessary
+    """
     init()
     return render(request, 'pages/about.html', {})
 
-import re
+def table(request):
+    return ""
+
 def itemPage(request, itemID):
+    """
+    ItemPage generation based on itemID
+    """
     init()
-    t0 = time.time()
     show = {}
-    # wr 511
+    # Basic item stats
     show['itemName'] = itemData511['data'][str(itemID)]['name']
     show['icon'] = '/static/img/511/'+str(itemID)+".png"
-    print itemData511['data'][str(itemID)]['description']
     show['itemRawStats511'] = itemData511['data'][str(itemID)]['description']
     show['itemCost511'] = itemData511['data'][str(itemID)]['gold']['total']
     show['itemRawStats514'] = itemData514['data'][str(itemID)]['description']
@@ -143,6 +142,8 @@ def itemPage(request, itemID):
                 print array[i][1]
                 return i
         return -1
+
+    # Stats for item ranking (global)
     for item in f['overallItemData']:
         itemlist.append((item, getWR(f['overallItemData'][item]['7'])))
     itemlist = sorted(itemlist, key = lambda a: -a[1] if str(a[0]) in g['overallItemData'] else 1)
@@ -150,13 +151,12 @@ def itemPage(request, itemID):
     for item in g['overallItemData']:
         itemlist1.append((item, getWR(g['overallItemData'][item]['7'])))
     itemlist1 = sorted(itemlist1, key = lambda a: -a[1] if str(a[0]) in f['overallItemData'] else 1)
-
-
     show['rank511'] = indexOfIn(str(itemID), itemlist1)+1
     show['rank514'] = indexOfIn(str(itemID), itemlist)+1
     show['rankdiff'] = -show['rank514']+show['rank511']
-
     show['rn'] = show['rankdiff'] < 0
+
+    # Calculate and display GPM stats from 5.11 to 5.14 for each item
     gtot1 = 0
     ttot1 = 0
     gtot2 = 0
@@ -170,9 +170,9 @@ def itemPage(request, itemID):
     show['GPM511'] = round(float(gtot1*60000)/ttot1, 2) if ttot1 > 0 else 0
     show['GPM514'] = round(float(gtot2*60000)/ttot2, 2) if ttot2 > 0 else 0
     show['GPMdiff'] = show['GPM514']-show['GPM511']
-
     show['GPMn'] = show['GPMdiff'] < 0
 
+    # Winrate changes from 5.11 to 5.14
     show['WR511'] = getWR(g['overallItemData'][str(itemID)]['7'])
     show['WR514'] = getWR(f['overallItemData'][str(itemID)]['7'])
     show['WRdiff'] = -show['WR511']+show['WR514']
@@ -181,33 +181,22 @@ def itemPage(request, itemID):
     show['WR511'] = str(show['WR511'])+'%'
     show['WR514'] = str(show['WR514'])+'%'
 
-
-    show['iscore511'] = 1
-    show['iscore514'] = 1
-    show['iscorediff'] = 1
+    # Pickrate changes from 5.11 to 5.14
     show['pickRate511'] = round(g['itemPickRate'][str(itemID)], 4)*100
     show['pickRate514'] = round(f['itemPickRate'][str(itemID)], 4)*100
     show['pickRateDiff'] = show['pickRate514'] - show['pickRate511']
-
     show['PRn'] = show['pickRateDiff'] < 0
-
     show['pickRate511'] = str(show['pickRate511'])+'%'
     show['pickRate514'] = str(show['pickRate514'])+'%'
     show['pickRateDiff'] = str(show['pickRateDiff'])+'%'
 
-
+    # Time of completion calculations
     show['completion511'] = round(float(g['itemTime'][str(itemID)])/60000, 2)
     show['completion514'] = round(float(f['itemTime'][str(itemID)])/60000, 2)
     show['completionDiff'] = show['completion514']-show['completion511']
-
     show['cn'] = show['completionDiff'] < 0
 
-    def indexOfIn(cid , array):
-        for i in range(len(array)):
-            if cid == array[i][0]:
-                print array[i][1]
-                return i
-        return -1
+    # Calculate champions with highest WR following patch and pickrate following patch along with rank change
 
     flistwr = []
     for champ in f['championItemOrderWR']:
@@ -250,17 +239,19 @@ def itemPage(request, itemID):
         add['box'] = '\'{"icon":"/static/img/champs/' + idToChamp[str(glistpr[i][0])]+'", "name":"' + champData['data'][str(glistpr[i][0])]['name'].replace('\'', "")+'", "delta": "' + str(- i + indexOfIn(glistpr[i][0], flistpr)) + '"}\''
         ranks514.append(add)
     show['ranked_514'] = ranks514
-    t1 = time.time()
-
-    total = t1-t0
-    print str(total) + " TIMING DATA"
     return render(request, 'pages/itemPage.html', show)
 
 
 def getWR(data):
+    """
+    Give WR based on a list containing Wins and Losses. Only give a winrate when there are more than 30 games of data, round to 4 and give as a percent.
+    """
     return round(float(data['W'])/(data['W']+data['L']) if data['W']+data['L'] > 30 else 0, 4)*100
 
 def index(request):
+    """
+    Index page.
+    """
     init()
     show = {}
     itemlist = []
@@ -271,6 +262,7 @@ def index(request):
                 print array[i][1]
                 return i
         return -1
+    # Create ranked list data, including winrates, pickrates, and rankings along with the changes.
     for item in f['overallItemData']:
         if f['itemPickRate'][item] > 0:
             itemlist.append((item, getWR(f['overallItemData'][item]['7'])))
