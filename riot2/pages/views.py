@@ -252,9 +252,20 @@ def index(request):
     init()
     show = {}
     itemlist = []
+
+    def indexOfIn(cid , array):
+        for i in range(len(array)):
+            if cid == array[i][0]:
+                print array[i][1]
+                return i
+        return -1
     for item in f['overallItemData']:
         itemlist.append((item, getWR(f['overallItemData'][item]['7'])))
     itemlist = sorted(itemlist, key = lambda a: -a[1] if str(a[0]) in g['overallItemData'] else 1)
+    itemlist1 = []
+    for item in g['overallItemData']:
+        itemlist1.append((item, getWR(g['overallItemData'][item]['7'])))
+    itemlist1 = sorted(itemlist1, key = lambda a: -a[1] if str(a[0]) in f['overallItemData'] else 1)
     item_list = []
     for i in range(len(itemlist)):
         add = {}
@@ -268,6 +279,7 @@ def index(request):
         add['wr514'] = str(getWR(f['overallItemData'][str(itemlist[i][0])]['7'])) + '%'
         add['pr511'] = str(round(g['itemPickRate'][str(itemlist[i][0])],4)*100) + '%'
         add['pr514'] = str(round(f['itemPickRate'][str(itemlist[i][0])],4)*100) + '%'
+        add['rankChange'] = -  i + indexOfIn(itemlist[i][0], itemlist1)
         item_list.append(add)
     show['item_list'] = item_list
     return render(request, 'pages/index.html', show)
