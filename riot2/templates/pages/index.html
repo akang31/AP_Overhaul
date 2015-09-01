@@ -2,7 +2,7 @@
 ***************************************************************************************
 index.html
 - Home page of the website
-- Provides an overview of all the AP items along with some of their stats, including: 
+- Provides an overview of all the AP items along with some of their stats, including:
     - old/new win rates
     - old/new popularity
     - overall rank
@@ -70,7 +70,11 @@ index.html
                                 <td>{{item.wr514}}</td>
                                 <td>{{item.pr511}}</td>
                                 <td>{{item.pr514}}</td>
-                                <td>{{item.rankChange}}</td>
+                                {% if item.rn %}
+                                  <td class="text-left delta_red"></iron-icon>{{item.rankChange}}</td>
+                                {% else %}
+                                  <td class="text-left delta_green"><iron-icon icon="add"></iron-icon>{{item.rankChange}}</td>
+                                {% endif %}
                             </tr>
                             {% endfor %}
                         {% endblock %}
@@ -78,7 +82,7 @@ index.html
                 </div>
             </paper-card>
         </div>
-        
+
         <!-- Footer -->
         <div id="footer" style="width:100%;"></div>
     </div>
