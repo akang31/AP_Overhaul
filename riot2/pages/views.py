@@ -294,6 +294,7 @@ def index(request):
         add['pr511'] = str(round(g['itemPickRate'][str(itemlist[i][0])],4)*100) + '%'
         add['pr514'] = str(round(f['itemPickRate'][str(itemlist[i][0])],4)*100) + '%'
         add['rankChange'] = -  i + indexOfIn(itemlist[i][0], itemlist1)
+        add['rn'] = add['rankChange'] < 0
         item_list.append(add)
     show['item_list'] = item_list
     return render(request, 'pages/index.html', show)
