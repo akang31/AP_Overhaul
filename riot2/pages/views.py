@@ -130,15 +130,33 @@ def itemPage(request, itemID):
     show['itemName'] = itemData511['data'][str(itemID)]['name']
     show['icon'] = '/static/img/511/'+str(itemID)+".png"
     print itemData511['data'][str(itemID)]['description']
-    show['itemRawStats511'] = itemData511['data'][str(itemID)]['description']#re.findall('<stats>(.*?)<\\/stats>', itemData511['data'][str(itemID)]['description'], re.DOTALL)[0] if 'stats' in itemData511['data'][str(itemID)]['description'] else ''
-    #show['itemPassiveStats511'] = re.findall('<unique>(.*?)<\\/unique>', itemData511['data'][str(itemID)]['description'], re.DOTALL) + re.findall('<\\\/unique\>(.*?)', itemData511['data'][str(itemID)]['description'], re.DOTALL) if 'unique' in itemData511['data'][str(itemID)]['description'] else ''
-    #show['itemActiveStats511'] = "dinosaur"
+    show['itemRawStats511'] = itemData511['data'][str(itemID)]['description']
     show['itemCost511'] = itemData511['data'][str(itemID)]['gold']['total']
-    show['itemRawStats514'] = itemData514['data'][str(itemID)]['description']#re.findall('<stats>(.*?)<\\/stats>', itemData514['data'][str(itemID)]['description'], re.DOTALL)[0] if 'stats' in itemData514['data'][str(itemID)]['description'] else ''
-    #show['itemPassiveStats514'] = re.findall('<unique>(.*?)<\\/unique>', itemData514['data'][str(itemID)]['description'], re.DOTALL) + re.findall('<\\\/unique\>(.*?)', itemData514['data'][str(itemID)]['description'], re.DOTALL) if 'unique' in itemData514['data'][str(itemID)]['description'] else ''
-    #show['itemActiveStats514'] = itemData514['data'][str(itemID)]['description']
+    show['itemRawStats514'] = itemData514['data'][str(itemID)]['description']
     show['itemCost514'] = itemData514['data'][str(itemID)]['gold']['total']
 
+    itemlist = []
+
+    def indexOfIn(cid , array):
+        for i in range(len(array)):
+            if cid == array[i][0]:
+                print array[i][1]
+                return i
+        return -1
+    for item in f['overallItemData']:
+        itemlist.append((item, getWR(f['overallItemData'][item]['7'])))
+    itemlist = sorted(itemlist, key = lambda a: -a[1] if str(a[0]) in g['overallItemData'] else 1)
+    itemlist1 = []
+    for item in g['overallItemData']:
+        itemlist1.append((item, getWR(g['overallItemData'][item]['7'])))
+    itemlist1 = sorted(itemlist1, key = lambda a: -a[1] if str(a[0]) in f['overallItemData'] else 1)
+
+
+    show['rank511'] = indexOfIn(str(itemID), itemlist1)+1
+    show['rank514'] = indexOfIn(str(itemID), itemlist)+1
+    show['rankdiff'] = -show['rank514']+show['rank511']
+
+    show['rn'] = show['rankdiff'] < 0
     gtot1 = 0
     ttot1 = 0
     gtot2 = 0
@@ -183,12 +201,6 @@ def itemPage(request, itemID):
     show['completionDiff'] = show['completion514']-show['completion511']
 
     show['cn'] = show['completionDiff'] < 0
-
-    show['rank511'] = 1
-    show['rank514'] = 1
-    show['rankdiff'] = 1
-
-    show['rn'] = show['rankdiff'] < 0
 
     def indexOfIn(cid , array):
         for i in range(len(array)):
@@ -260,11 +272,13 @@ def index(request):
                 return i
         return -1
     for item in f['overallItemData']:
-        itemlist.append((item, getWR(f['overallItemData'][item]['7'])))
+        if f['itemPickRate'][item] > 0:
+            itemlist.append((item, getWR(f['overallItemData'][item]['7'])))
     itemlist = sorted(itemlist, key = lambda a: -a[1] if str(a[0]) in g['overallItemData'] else 1)
     itemlist1 = []
     for item in g['overallItemData']:
-        itemlist1.append((item, getWR(g['overallItemData'][item]['7'])))
+        if g['itemPickRate'][item] > 0:
+            itemlist1.append((item, getWR(g['overallItemData'][item]['7'])))
     itemlist1 = sorted(itemlist1, key = lambda a: -a[1] if str(a[0]) in f['overallItemData'] else 1)
     item_list = []
     for i in range(len(itemlist)):
